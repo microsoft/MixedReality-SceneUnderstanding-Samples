@@ -1,15 +1,15 @@
 # Microsoft.MixedReality.SceneUnderstanding.Samples - UnitySample
-A Unity-based sample application that showcases Scene Understanding on HoloLens 2. 
-When this sample is deployed on a HoloLens, it will show the virtual representation of your real environment.
-When this sample is deployed on a PC, it will load a serialized scene (included under Resources\SerializedScenesForPCPath) and display it.
-A help menu is presented on launch, which provides information about all the input commands available in the application.
-To learn more about Scene Understanding, please visit this link: https://docs.microsoft.com/en-us/windows/mixed-reality/scene-understanding
-To learn more about Scene Understanding SDK, please visit this link: https://docs.microsoft.com/en-us/windows/mixed-reality/scene-understanding-sdk
+A Unity-based sample application that showcases Scene Understanding on HoloLens 2.  
+When this sample is deployed on a HoloLens, it will show the virtual representation of your real environment.  
+When this sample is deployed on a PC, it will load a serialized scene (included under Resources\SerializedScenesForPCPath) and display it.  
+A help menu is presented on launch, which provides information about all the input commands available in the application.  
+To learn more about Scene Understanding, please visit this link: https://docs.microsoft.com/en-us/windows/mixed-reality/scene-understanding.  
+To learn more about Scene Understanding SDK, please visit this link: https://docs.microsoft.com/en-us/windows/mixed-reality/scene-understanding-sdk.  
 
 # Prerequisites
-Unity 2018.4.12.* or greater.
-Visual Studio 2017 or 2019 with Universal Windows Platform components
-Windows SDK version 10.0.18362.0 or greater.
+Unity 2018.4.12.* or greater.  
+Visual Studio 2017 or 2019 with Universal Windows Platform components.  
+Windows SDK version 10.0.18362.0 or greater.  
 
 # Running on HoloLens 2
 To run this sample on the HoloLens 2, please follow the instructions below:
@@ -31,5 +31,5 @@ To run this sample on the PC, please follow the instructions below:
 4. Click 'Play' in the Editor.
 
 # Additional Notes
-This sample relies on NuGetForUnity package (https://github.com/GlitchEnzo/NuGetForUnity) to bring NuGet support inside Unity. 
+This sample relies on NuGetForUnity package (https://github.com/GlitchEnzo/NuGetForUnity) to bring NuGet support inside Unity.  
 When you first launch the sample in Unity, NuGetForUnity will restore the Microsoft.MixedReality.SceneUnderstanding NuGet package and place the contents under Assets\Packages.
