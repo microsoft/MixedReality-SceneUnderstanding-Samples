@@ -3,10 +3,8 @@
 namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 {
     using System;
+    using System.Runtime.InteropServices;
     using UnityEngine;
-#if WINDOWS_UWP
-    using Windows.Perception.Spatial;
-#endif
 
     /// <summary>
     /// Provides helper methods for transformation related operations.
@@ -96,7 +94,15 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             }
         }
 
-
+        [StructLayout(LayoutKind.Sequential)]
+        struct HolographicFrameNativeData
+        {
+            public uint VersionNumber;
+            public uint MaxNumberOfCameras;
+            public IntPtr ISpatialCoordinateSystemPtr; // Windows::Perception::Spatial::ISpatialCoordinateSystem
+            public IntPtr IHolographicFramePtr; // Windows::Graphics::Holographic::IHolographicFrame 
+            public IntPtr IHolographicCameraPtr; // // Windows::Graphics::Holographic::IHolographicCamera
+        }
 
         /// <summary>
         /// Takes in a spatial node id and returns the transformation matrix that specifies the transformation from the spatial node to the Unity world.
@@ -108,27 +114,27 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         {
             System.Numerics.Matrix4x4? sceneToUnityTransform = System.Numerics.Matrix4x4.Identity;
 
-#if WINDOWS_UWP
             // Only get the spatial coordinate if we are running on device
             if (runOnDevice)
             {
                 Logger.Log("TransformUtils.GetSceneToUnityTransform: About to create a coordinate system for node id: " + nodeId);
-                SpatialCoordinateSystem sceneSpatialCoordinateSystem = Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview.CreateCoordinateSystemForNode(nodeId);
-                SpatialCoordinateSystem unitySpatialCoordinateSystem = (SpatialCoordinateSystem)System.Runtime.InteropServices.Marshal.GetObjectForIUnknown(
-                    UnityEngine.XR.WSA.WorldManager.GetNativeISpatialCoordinateSystemPtr());
+                var sceneSpatialCoordinateSystem = Microsoft.Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview.CreateCoordinateSystemForNode(nodeId);
+
+                var holographicFrameNativeData = Marshal.PtrToStructure<HolographicFrameNativeData>(UnityEngine.XR.XRDevice.GetNativePtr());
+                var unitySpatialCoordinateSystem = Microsoft.Windows.Perception.Spatial.SpatialCoordinateSystem.FromNativePtr(holographicFrameNativeData.ISpatialCoordinateSystemPtr);
 
                 sceneToUnityTransform = sceneSpatialCoordinateSystem.TryGetTransformTo(unitySpatialCoordinateSystem);
 
                 if (sceneToUnityTransform != null)
                 {
-                    sceneToUnityTransform = TransformUtils.ConvertRightHandedMatrix4x4ToLeftHanded(sceneToUnityTransform.Value);
+                    sceneToUnityTransform = ConvertRightHandedMatrix4x4ToLeftHanded(sceneToUnityTransform.Value);
                 }
                 else
                 {
                     Logger.LogWarning("TransformUtils.GetSceneToUnityTransform: Scene to Unity transform is null. Not good.");
                 }
             }
-#endif
+
             return sceneToUnityTransform;
         }
     }
