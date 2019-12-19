@@ -6,7 +6,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using SceneUnderstanding = Microsoft.MixedReality.SceneUnderstanding;
 
     /// <summary>
     /// Different rendering modes available for scene objects.

@@ -4,7 +4,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 {
     using System.Collections.Generic;
     using UnityEngine;
-    using SceneUnderstanding = Microsoft.MixedReality.SceneUnderstanding;
 
     /// <summary>
     /// Helper methods for Unity and Scene Understanding related operations.

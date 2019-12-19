@@ -8,7 +8,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
     using System.Linq;
     using System.Threading.Tasks;
     using UnityEngine;
-    using SceneUnderstanding = Microsoft.MixedReality.SceneUnderstanding;
 
     /// <summary>
     /// When running on device (HoloLens 2), this class interacts with the Scene Understanding runtime and keeps on retrieving the latest scene data.
@@ -99,8 +98,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             {
                 if (Application.isEditor)
                 {
-                    Logger.LogError("SceneUnderstandingDataProvider.Start: Running in editor with the RunOnDevice mode set is not supported.");
-                    return;
+                    Logger.LogWarning("SceneUnderstandingDataProvider.Start: Running in editor with the RunOnDevice mode set is not supported.");
                 }
 
                 if (SceneUnderstanding.SceneObserver.IsSupported())

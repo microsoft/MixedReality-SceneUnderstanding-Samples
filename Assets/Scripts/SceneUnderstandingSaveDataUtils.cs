@@ -1,5 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 
+// Work-around to disambiguate between Microsoft.Windows.* and Windows.*
+#if WINDOWS_UWP
+using WindowsStorage = Windows.Storage;
+#endif
+
 namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 {
     using System;
@@ -9,7 +14,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
     using System.Text;
     using System.Threading.Tasks;
     using UnityEngine;
-    using SceneUnderstanding = Microsoft.MixedReality.SceneUnderstanding;
 
     /// <summary>
     /// Provides helper methods that allow one to save Scene Understanding data.
@@ -59,9 +63,9 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             }
 
 #if WINDOWS_UWP
-            var folder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            var file = await folder.CreateFileAsync(fileName, Windows.Storage.CreationCollisionOption.GenerateUniqueName);
-            await Windows.Storage.FileIO.WriteBytesAsync(file, serializedScene);
+            var folder = WindowsStorage.ApplicationData.Current.LocalFolder;
+            var file = await folder.CreateFileAsync(fileName, WindowsStorage.CreationCollisionOption.GenerateUniqueName);
+            await WindowsStorage.FileIO.WriteBytesAsync(file, serializedScene);
 #else
             var folder = Path.GetTempPath();
             var file = Path.Combine(folder, fileName);
@@ -196,9 +200,9 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             }
 
 #if WINDOWS_UWP
-            var folder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            var file = await folder.CreateFileAsync(fileName, Windows.Storage.CreationCollisionOption.GenerateUniqueName);
-            await Windows.Storage.FileIO.AppendTextAsync(file, str);
+            var folder = WindowsStorage.ApplicationData.Current.LocalFolder;
+            var file = await folder.CreateFileAsync(fileName, WindowsStorage.CreationCollisionOption.GenerateUniqueName);
+            await WindowsStorage.FileIO.AppendTextAsync(file, str);
 #else
             var folder = Path.GetTempPath();
             var file = Path.Combine(folder, fileName);
