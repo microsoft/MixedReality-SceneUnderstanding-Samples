@@ -98,7 +98,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             {
                 if (Application.isEditor)
                 {
-                    Logger.LogWarning("You appear to be running in editor with the RunOnDevice mode, which is not supported.");
+                    Logger.LogWarning("SceneUnderstandingDataProvider.Start: Running in editor with the RunOnDevice mode set is not supported.");
                 }
 
                 if (SceneUnderstanding.SceneObserver.IsSupported())
