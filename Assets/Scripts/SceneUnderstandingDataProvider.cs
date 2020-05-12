@@ -110,9 +110,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                         return;
                     }
 
-                    // At the beginning, retrieve only the observed scene object meshes.
-                    RetrieveData(BoundingSphereRadiusInMeters, false, true, false, false, SceneUnderstanding.SceneMeshLevelOfDetail.Coarse);
-
                     // Then, spin off a background thread to continually retrieve SU data.
                     Task.Run(() => RetrieveDataContinuously());
                 }
@@ -140,6 +137,9 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         /// </summary>
         private void RetrieveDataContinuously()
         {
+            // At the beginning, retrieve only the observed scene object meshes.
+            RetrieveData(BoundingSphereRadiusInMeters, false, true, false, false, SceneUnderstanding.SceneMeshLevelOfDetail.Coarse);
+
             while (true)
             {
                 // Always request quads, meshes and the world mesh. SceneUnderstandingDisplayManager will take care of rendering only what the user has asked for.
