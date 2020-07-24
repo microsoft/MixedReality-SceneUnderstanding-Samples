@@ -47,7 +47,7 @@ PlayerSettings:
   defaultScreenHeight: 768
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
-  m_StereoRenderingPath: 1
+  m_StereoRenderingPath: 2
   m_ActiveColorSpace: 0
   m_MTRendering: 1
   m_StackTraceTypes: 010000000100000001000000010000000100000001000000
@@ -66,6 +66,7 @@ PlayerSettings:
   disableDepthAndStencilBuffers: 0
   androidStartInFullscreen: 1
   androidRenderOutsideSafeArea: 0
+  androidUseSwappy: 0
   androidBlitType: 0
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
@@ -80,6 +81,7 @@ PlayerSettings:
   usePlayerLog: 1
   bakeCollisionMeshes: 0
   forceSingleInstance: 0
+  useFlipModelSwapchain: 1
   resizableWindow: 0
   useMacAppStoreValidation: 0
   macAppStoreCategory: public.app-category.games
@@ -126,7 +128,6 @@ PlayerSettings:
   m_HolographicPauseOnTrackingLoss: 0
   xboxOneDisableKinectGpuReservation: 0
   xboxOneEnable7thCore: 0
-  isWsaHolographicRemotingEnabled: 0
   vrSettings:
     cardboard:
       depthFormat: 0
@@ -139,8 +140,14 @@ PlayerSettings:
       minimumSupportedHeadTracking: 0
       maximumSupportedHeadTracking: 1
     hololens:
-      depthFormat: 1
-      depthBufferSharingEnabled: 0
+      depthFormat: 0
+      depthBufferSharingEnabled: 1
+    lumin:
+      depthFormat: 0
+      frameTiming: 2
+      enableGLCache: 0
+      glCacheMaxBlobSize: 524288
+      glCacheMaxFileSize: 8388608
     oculus:
       sharedDepthBuffer: 0
       dashSupport: 0
@@ -148,6 +155,7 @@ PlayerSettings:
       protectedContext: 0
       v2Signing: 0
     enable360StereoCapture: 0
+  isWsaHolographicRemotingEnabled: 0
   protectGraphicsMemory: 0
   enableFrameTimingStats: 0
   useHDRDisplay: 0
@@ -196,6 +204,10 @@ PlayerSettings:
   iPadHighResPortraitSplashScreen: {fileID: 0}
   iPadLandscapeSplashScreen: {fileID: 0}
   iPadHighResLandscapeSplashScreen: {fileID: 0}
+  iPhone65inPortraitSplashScreen: {fileID: 0}
+  iPhone65inLandscapeSplashScreen: {fileID: 0}
+  iPhone61inPortraitSplashScreen: {fileID: 0}
+  iPhone61inLandscapeSplashScreen: {fileID: 0}
   appleTVSplashScreen: {fileID: 0}
   appleTVSplashScreen2x: {fileID: 0}
   tvOSSmallIconLayers: []
@@ -255,11 +267,14 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
+  androidUseCustomKeystore: 0
   m_AndroidBanners:
   - width: 320
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
+  AndroidValidateAppBundleSize: 1
+  AndroidAppBundleSizeToValidate: 150
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
   - m_BuildTarget: 
@@ -284,9 +299,10 @@ PlayerSettings:
     m_Enabled: 1
     m_Devices:
     - WindowsMR
-  m_BuildTargetEnableVuforiaSettings: []
   openGLRequireES31: 0
   openGLRequireES31AEP: 0
+  openGLRequireES32: 0
+  vuforiaEnabled: 0
   m_TemplateCustomTags: {}
   mobileMTRendering:
     Android: 1
@@ -405,6 +421,7 @@ PlayerSettings:
   switchRatingsInt_9: 0
   switchRatingsInt_10: 0
   switchRatingsInt_11: 0
+  switchRatingsInt_12: 0
   switchLocalCommunicationIds_0: 
   switchLocalCommunicationIds_1: 
   switchLocalCommunicationIds_2: 
@@ -473,6 +490,7 @@ PlayerSettings:
   ps4DownloadDataSize: 0
   ps4GarlicHeapSize: 2048
   ps4ProGarlicHeapSize: 2560
+  playerPrefsMaxSize: 32768
   ps4Passcode: frAQBc8Wsa1xVPfvJcrgRYwTiizs2trQ
   ps4pnSessions: 1
   ps4pnPresence: 1
@@ -506,6 +524,7 @@ PlayerSettings:
   monoEnv: 
   splashScreenBackgroundSourceLandscape: {fileID: 0}
   splashScreenBackgroundSourcePortrait: {fileID: 0}
+  blurSplashScreenBackground: 1
   spritePackerPolicy: 
   webGLMemorySize: 256
   webGLExceptionSupport: 1
@@ -520,6 +539,7 @@ PlayerSettings:
   webGLCompressionFormat: 1
   webGLLinkerTarget: 0
   webGLThreadsSupport: 0
+  webGLWasmStreaming: 0
   scriptingDefineSymbols: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -530,6 +550,8 @@ PlayerSettings:
   allowUnsafeCode: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
+  gcIncremental: 0
+  gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
     Metro: 6
     Standalone: 6
@@ -542,29 +564,34 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: Microsoft Corporation
   metroCertificateIssuer: Microsoft Corporation
-  metroCertificateNotAfter: 0044381ea60fd601
+  metroCertificateNotAfter: 8033f8d47d78d701
   metroApplicationDescription: Scene Understanding
   wsaImages:
-    65636: Assets/Textures/UWPImages/StoreLogo.scale-100.png
-    65661: Assets/Textures/UWPImages/StoreLogo.scale-125.png
-    65686: Assets/Textures/UWPImages/StoreLogo.scale-150.png
-    65736: Assets/Textures/UWPImages/StoreLogo.scale-200.png
-    65936: Assets/Textures/UWPImages/StoreLogo.scale-400.png
-    2031632: Assets/Textures/UWPImages/Square44x44Logo.targetsize-16.png
-    2031640: Assets/Textures/UWPImages/Square44x44Logo.targetsize-24.png
-    2031648: Assets/Textures/UWPImages/Square44x44Logo.targetsize-32.png
-    2031664: Assets/Textures/UWPImages/Square44x44Logo.targetsize-48.png
-    2031716: Assets/Textures/UWPImages/Square44x44Logo.scale-100.png
-    2031741: Assets/Textures/UWPImages/Square44x44Logo.scale-125.png
-    2031766: Assets/Textures/UWPImages/Square44x44Logo.scale-150.png
-    2031816: Assets/Textures/UWPImages/Square44x44Logo.scale-200.png
-    2031872: Assets/Textures/UWPImages/Square44x44Logo.targetsize-256.png
-    2032016: Assets/Textures/UWPImages/Square44x44Logo.scale-400.png
-    2162788: Assets/Textures/UWPImages/Square150x150Logo.scale-100.png
-    2162813: Assets/Textures/UWPImages/Square150x150Logo.scale-125.png
-    2162838: Assets/Textures/UWPImages/Square150x150Logo.scale-150.png
-    2162888: Assets/Textures/UWPImages/Square150x150Logo.scale-200.png
-    2163088: Assets/Textures/UWPImages/Square150x150Logo.scale-400.png
+    65636: Assets/SceneUnderstandingApp/Resources/Textures/UWPImages/StoreLogo.scale-100.png
+    65661: Assets/SceneUnderstandingApp/Resources/Textures/UWPImages/StoreLogo.scale-125.png
+    65686: Assets/SceneUnderstandingApp/Resources/Textures/UWPImages/StoreLogo.scale-150.png
+    65736: Assets/SceneUnderstandingApp/Resources/Textures/UWPImages/StoreLogo.scale-200.png
+    65936: Assets/SceneUnderstandingApp/Resources/Textures/UWPImages/StoreLogo.scale-400.png
+    2031632: 
+    2031640: 
+    2031648: 
+    2031664: 
+    2031716: 
+    2031741: 
+    2031766: 
+    2031816: 
+    2031872: 
+    2032016: 
+    2162788: 
+    2162813: 
+    2162838: 
+    2162888: 
+    2163088: 
+    2293860: 
+    2293885: 
+    2293910: 
+    2293960: 
+    2294160: 
   metroTileShortName: SceneUnderstanding
   metroTileShowName: 0
   metroMediumTileShowName: 0
@@ -628,7 +655,6 @@ PlayerSettings:
   metroFTAName: 
   metroFTAFileTypes: []
   metroProtocolName: 
-  metroCompilationOverrides: 1
   XboxOneProductId: 
   XboxOneUpdateKey: 
   XboxOneSandboxId: 
@@ -653,7 +679,7 @@ PlayerSettings:
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
   XboxOneXTitleMemory: 8
-  xboxOneScriptCompiler: 0
+  xboxOneScriptCompiler: 1
   XboxOneOverrideIdentityName: 
   vrEditorSettings:
     daydream:
@@ -666,7 +692,7 @@ PlayerSettings:
     m_PortalFolderPath: 
   luminCert:
     m_CertPath: 
-    m_PrivateKeyPath: 
+    m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:
     m_VersionCode: 1

@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SceneUnderstandingSample.unity
-    guid: fc54b48c95332ac4b897fe62a5ebe76b
+    path: Assets/SceneUnderstanding/Examples/Home/Scenes/Home-Examples.unity
+    guid: e0be1d44b746e4146a17c5eba3df5f4a
+  - enabled: 1
+    path: Assets/SceneUnderstanding/Examples/Understanding/Scenes/Understanding-Simple.unity
+    guid: bc8988c6a8418fd4182034ccc312b3d5
+  - enabled: 1
+    path: Assets/SceneUnderstanding/Examples/Placement/Scenes/Placement-Simple.unity
+    guid: 26170eb1961c2f7469c7dfd04d0c1338
+  - enabled: 1
+    path: Assets/SceneUnderstanding/Examples/NavMesh/Scenes/NavMesh-Simple.unity
+    guid: b3e8801e20bf1424d8c4d37aaf6e53a6
   m_configObjects: {}

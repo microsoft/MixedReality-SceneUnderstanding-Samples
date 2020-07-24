@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1654952326856315524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1654952326856315525}
+  - component: {fileID: 1654952326856315522}
+  m_Layer: 0
+  m_Name: SceneUnderstandingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1654952326856315525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654952326856315524}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1654952326856315522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654952326856315524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf91772e59effdc478493c7b4907aa27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunOnDevice: 1
+  SUSerializedScenePaths:
+  - {fileID: 4900000, guid: 60afa97ae67aa8044b1a2239396b5647, type: 3}
+  SceneRoot: {fileID: 0}
+  BoundingSphereRadiusInMeters: 10
+  AutoRefresh: 1
+  AutoRefreshIntervalInSeconds: 10
+  SceneObjectRenderMode: 2
+  RenderQuality: 1
+  ColorForBackgroundObjs: {r: 0.953, g: 0.475, b: 0.875, a: 1}
+  ColorForWallObjs: {r: 0.953, g: 0.494, b: 0.475, a: 1}
+  ColorForFloorObjs: {r: 0.733, g: 0.953, b: 0.475, a: 1}
+  ColorForCeilingObjs: {r: 0.475, g: 0.596, b: 0.953, a: 1}
+  ColorForPlatformsObjs: {r: 0.204, g: 0.792, b: 0.714, a: 1}
+  ColorForUnknownObjs: {r: 1, g: 1, b: 1, a: 1}
+  ColorForInferredObjs: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  ColorForWorldObjs: {r: 0, g: 1, b: 1, a: 1}
+  SceneObjectMeshMaterial: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be,
+    type: 2}
+  SceneObjectQuadMaterial: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f,
+    type: 2}
+  SceneObjectWireframeMaterial: {fileID: 2100000, guid: 86ec9582d8dcbc34bac58ae621e24af9,
+    type: 2}
+  TransparentOcclussion: {fileID: 2100000, guid: aeb8d1d6bacc40846ba6b49f18532a87,
+    type: 2}
+  RenderSceneObjects: 1
+  DisplayTextLabels: 1
+  RenderPlatformSceneObjects: 1
+  RenderBackgroundSceneObjects: 1
+  RenderUnknownSceneObjects: 1
+  RenderWorldMesh: 0
+  RequestInferredRegions: 1
+  RenderCompletelyInferredSceneObjects: 1
+  AddColliders: 1
+  isInGhostMode: 0
+  OnLoadStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLoadFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  timeElapsedSinceLastAutoRefresh: 0
