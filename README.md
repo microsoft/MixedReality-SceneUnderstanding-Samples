@@ -14,7 +14,7 @@ Windows SDK version 10.0.18362.0 or greater.
 # Running on HoloLens 2
 To run this sample on the HoloLens 2, please follow the instructions below:
 1. Open the SceneUnderstanding Sample Scenes under Assets\SceneUnderstanding\Examples (Scenes are Under Placement, NavMesh and Understanding Folder)
-2. Select the SceneUnderstandingManager game object and make sure that 'Run On Device' checkbox is checked on the SceneUnderstandingManager Component in all Scenes
+2. Select the SceneUnderstandingManager game object and make sure that 'Query Scene From Device' checkbox is checked on the SceneUnderstandingManager Component in all Scenes
 3. In the Menu under File->Build Settings, click on Build --> UWP. Once the build completes successfully, a log indicating this will show up in the output console.
 4. Navigate to the UWP folder under root and open the 'Scene Understanding.sln' in Visual Studio.
 5. Right-click on the 'Scene Understanding (Universal Windows)' project and click on 'Publish' --> 'Create App Packages'.
@@ -26,7 +26,7 @@ To run this sample on the HoloLens 2, please follow the instructions below:
 # Running on PC
 To run this sample on the PC, please follow the instructions below:
 1. Open any of the SceneUnderstanding Sample Scenes under Assets\SceneUnderstanding\Examples (Scenes are Under Placement, NavMesh and Understanding Folder)
-2. Select the SceneUnderstandingManager game object and uncheck the 'Run On Device' checkbox on the SceneUnderstandingManager Component
+2. Select the SceneUnderstandingManager game object and uncheck the 'Query Scene From Device' checkbox on the SceneUnderstandingManager Component
 3. Ensure SU Serialized Scene Paths on the Scene Understanding component is referring to a serialized Scene Understanding scene, examples scenes are provided under the examples folder
 4. Click 'Play' in the Editor.
 
