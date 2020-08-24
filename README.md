@@ -20,7 +20,7 @@ To run this sample on the HoloLens 2, please follow the instructions below:
 5. Right-click on the 'Scene Understanding (Universal Windows)' project and click on 'Publish' --> 'Create App Packages'.
 6. Run through the wizard and wait for building and packaging to complete. 
 7. The built app package should be at 'UWP\AppPackages\Scene Understanding\Scene Understanding_*\Scene Understanding_*.[appx|msix|appxbundle|msixbundle]'
-8. Deploy the package to a HoloLens 2.
+8. [Deploy](https://docs.microsoft.com/en-us/hololens/holographic-custom-apps) the package to a HoloLens 2. Ensure you build your application using ARM64, see the topic [Unity 2019.3 and HoloLens](https://microsoft.github.io/MixedRealityToolkit-Unity/Documentation/BuildAndDeploy.html#unity-20193-and-hololens) for further details.
 9. Launch the 'Scene Understanding' app from the 'All Apps' list on the HoloLens 2.
 
 # Running on PC
