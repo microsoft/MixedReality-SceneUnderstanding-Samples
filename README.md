@@ -9,7 +9,23 @@ To learn more about Scene Understanding SDK, please visit this link: https://doc
 # Prerequisites
 Unity 2019.2.21f1 or greater.  
 Visual Studio 2017 or 2019 with Universal Windows Platform components.  
-Windows SDK version 10.0.18362.0 or greater.  
+Windows SDK version 10.0.18362.0 or greater.
+Up to date version of Unity Hub.
+
+# Opening the project, verifying Nuget packages, Setting up Unity Scenes for build.
+After cloning the project or extracting the project from a zip. Open Unity Hub, select 'Add' and add your project folder from where you extracted it or cloned it.
+Wait for the project to load, after the project loaded you should see the following messages in the Unity Console
+
+'Added DLL directory C:\<YOUR-PATH>\MixedReality-SceneUnderstanding-Samples\Assets\Packages\Microsoft.VCRTForwarders.140.1.0.6\Unity\<ARCHITECTURE> to the user search path.'
+
+'Added DLL directory C:\<YOUR-PATH>\MixedReality-SceneUnderstanding-Samples\Assets\Packages\Microsoft.MixedReality.SceneUnderstanding.0.5.2065\Unity\<ARCHITECTURE> to the user search path.'
+
+If for whatever reason this messages don't show on your project, try closing and opening the project again.
+
+To verify your Nuget Packages are correctly installed. Open the Nuget Menu in Unity Nuget-> Manage Nuget Packages -> Installed. Verify Microsoft.MixReality.SceneUnderstanding and Microsoft.VCRTFowarders nugets are both installed. 
+
+# Running Prerequisites
+Before trying to build the project, verify the all the relevant unity scenes are loaded in the Unity Build Settings, go to File->Build Settings. All the samples scenes are under SceneUnderstanding/Examples folder inside the project. The 'Home-Examples' scene is not a SceneUnderstanding Scene per se, but rather a Menu Scene from which you can load the other example scenes.
 
 # Running on HoloLens 2
 To run this sample on the HoloLens 2, please follow the instructions below:
@@ -33,3 +49,9 @@ To run this sample on the PC, please follow the instructions below:
 # Additional Notes
 This sample relies on NuGetForUnity package (https://github.com/GlitchEnzo/NuGetForUnity) to bring NuGet support inside Unity.  
 When you first launch the sample in Unity, NuGetForUnity will restore the Microsoft.MixedReality.SceneUnderstanding NuGet package and place the contents under Assets\Packages.
+
+Note that when running on your Hololens all the interactive commands are voice commands, you are require to speak to interact with the scene when running on Hololens.
+
+Say 'Scene Objects Wireframe' , 'Load NavMesh' , 'Toggle Auto Refresh' etc. 
+
+
