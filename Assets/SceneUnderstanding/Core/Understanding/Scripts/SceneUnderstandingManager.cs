@@ -506,12 +506,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             GameObject unityParentHolderObject        = new GameObject(suObject.Kind.ToString());
             unityParentHolderObject.transform.parent  = SceneRoot.transform;
 
-            // The Unity GameObject will hold/remember all its Scene Understanding Properties, its values
-            // will be stored in this component
-            SceneUnderstandingProperties suProperties = unityParentHolderObject.AddComponent<SceneUnderstandingProperties>();
-            suProperties.suKind   = kind;
-            suProperties.suObject = suObject;
-
             // Scene Understanding uses a Right Handed Coordinate System and Unity uses a left handed one, convert.
             System.Numerics.Matrix4x4 converted4x4LocationMatrix = ConvertRightHandedMatrix4x4ToLeftHanded(suObject.GetLocationAsMatrix());
             // From the converted Matrix pass its values into the unity transform (Numerics -> Unity.Transform)

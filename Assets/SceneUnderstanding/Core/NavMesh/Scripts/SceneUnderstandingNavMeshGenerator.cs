@@ -58,8 +58,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                     // This area types are unity predefined, in the unity inspector in the navigation tab go to areas
                     // to see them
                     nvm.overrideArea = true;
-                    nvm.area         = sceneObj.parent.GetComponent<SceneUnderstandingProperties>().suKind == SceneUnderstanding.SceneObjectKind.Floor ? 
-                    (int) AreaType.Walkable : (int) AreaType.NotWalkable;
+                    nvm.area         = sceneObj.parent.name == "Floor" ?  (int) AreaType.Walkable : (int) AreaType.NotWalkable;
                 }
             }
         }

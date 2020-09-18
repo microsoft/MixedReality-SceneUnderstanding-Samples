@@ -22,16 +22,15 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             foreach (Transform child in SceneRoot.transform)
             {
                 GameObject suObject = child.gameObject;
-                SceneUnderstanding.SceneObjectKind kind = suObject.GetComponent<SceneUnderstandingProperties>().suKind;
-                string label = kind.ToString();
-
+                string label = suObject.name;
+                
                 if (
-                    kind != SceneUnderstanding.SceneObjectKind.Wall     &&
-                    kind != SceneUnderstanding.SceneObjectKind.Floor    &&
-                    kind != SceneUnderstanding.SceneObjectKind.Ceiling  &&
-                    kind != SceneUnderstanding.SceneObjectKind.Unknown  &&
-                    kind != SceneUnderstanding.SceneObjectKind.Platform &&
-                    kind != SceneUnderstanding.SceneObjectKind.Background
+                    label != "Wall"      &&
+                    label != "Floor"     &&
+                    label != "Ceiling"   &&
+                    label != "Unknown"   &&
+                    label != "Platform"  &&
+                    label != "Background"
                 )
                 {
                     continue;
