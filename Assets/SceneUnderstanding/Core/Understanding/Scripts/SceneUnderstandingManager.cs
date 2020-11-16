@@ -151,7 +151,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
         private async void Start()
         {
-            SceneRoot = SceneRoot == null ? new GameObject("Root") : SceneRoot;
+            SceneRoot = SceneRoot == null ? new GameObject("Scene Root") : SceneRoot;
 
             // Considering that device is currently not supported in the editor means that
             // if the application is running in the editor it is for sure running on PC and
@@ -172,14 +172,14 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
                 if (!SceneUnderstanding.SceneObserver.IsSupported())
                 {
-                    Debug.LogError("SceneUnderstandingDataProvider.Start: Scene Understanding not supported.");
+                    Debug.LogError("SceneUnderstandingManager.Start: Scene Understanding not supported.");
                     return;
                 }
 
                 SceneObserverAccessStatus access = await SceneUnderstanding.SceneObserver.RequestAccessAsync();
                 if (access != SceneObserverAccessStatus.Allowed)
                 {
-                    Debug.LogError("SceneUnderstandingDataProvider.Start: Access to Scene Understanding has been denied.\n" +
+                    Debug.LogError("SceneUnderstandingManager.Start: Access to Scene Understanding has been denied.\n" +
                                    "Reason: " + access);
                     return;
                 }
@@ -292,7 +292,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         /// <param name="lod">If world mesh is enabled, lod controls the resolution of the mesh returned.</param>
         private void RetrieveData(float boundingSphereRadiusInMeters, bool enableQuads, bool enableMeshes, bool enableInference, bool enableWorldMesh, SceneUnderstanding.SceneMeshLevelOfDetail lod)
         {
-            Debug.Log("SceneUnderstandingDataProvider.RetrieveData: Started.");
+            Debug.Log("SceneUnderstandingManager.RetrieveData: Started.");
 
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
             stopwatch.Start();
@@ -407,21 +407,22 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
             if(suScene != null)
             {
-                // If there was previously a scene displayed in the game world, destroy it
-                // to avoid overlap with the new scene about to be displayed
-                DestroyAllGameObjectsUnderParent(SceneRoot.transform);
-
-                // Allow from one frame to yield the coroutine back to the main thread
-                yield return null;
-
+                
                 // Retreive a transformation matrix that will allow us orient the Scene Understanding Objects into
                 // their correct correspoding position in the unity world
-                System.Numerics.Matrix4x4 sceneToUnityTransformAsMatrix4x4 = GetSceneToUnityTransformAsMatrix4x4(suScene);
+                System.Numerics.Matrix4x4? sceneToUnityTransformAsMatrix4x4 = GetSceneToUnityTransformAsMatrix4x4(suScene);
 
                 if(sceneToUnityTransformAsMatrix4x4 != null)
                 {
+                    // If there was previously a scene displayed in the game world, destroy it
+                    // to avoid overlap with the new scene about to be displayed
+                    DestroyAllGameObjectsUnderParent(SceneRoot.transform);
+
+                    // Allow from one frame to yield the coroutine back to the main thread
+                    yield return null;
+
                     // Using the transformation matrix generated above, port its values into the tranform of the scene root (Numerics.matrix -> GameObject.Transform)
-                    SetUnityTransformFromMatrix4x4(SceneRoot.transform, sceneToUnityTransformAsMatrix4x4, RunOnDevice);
+                    SetUnityTransformFromMatrix4x4(SceneRoot.transform, sceneToUnityTransformAsMatrix4x4.Value, RunOnDevice);
 
                     if(!RunOnDevice)
                     {
@@ -916,7 +917,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         /// from the Scene Understanding Coordinate System to the Unity one
         /// </summary>
         /// <param name="scene"> Scene from which to get the Scene Understanding Coordinate System </param>
-        private System.Numerics.Matrix4x4 GetSceneToUnityTransformAsMatrix4x4(SceneUnderstanding.Scene scene)
+        private System.Numerics.Matrix4x4? GetSceneToUnityTransformAsMatrix4x4(SceneUnderstanding.Scene scene)
         {
             System.Numerics.Matrix4x4? sceneToUnityTransform = System.Numerics.Matrix4x4.Identity;
 
@@ -938,7 +939,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 }
             }
 
-            return sceneToUnityTransform.Value;
+            return sceneToUnityTransform;
         }
 
         /// <summary>
@@ -1097,11 +1098,11 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
                 if(suScene != null)
                 {
-                    System.Numerics.Matrix4x4 sceneToUnityTransformAsMatrix4x4 = GetSceneToUnityTransformAsMatrix4x4(suScene);
+                    System.Numerics.Matrix4x4? sceneToUnityTransformAsMatrix4x4 = GetSceneToUnityTransformAsMatrix4x4(suScene);
 
                     if(sceneToUnityTransformAsMatrix4x4 != null)
                     {
-                        SetUnityTransformFromMatrix4x4(SceneRoot.transform, sceneToUnityTransformAsMatrix4x4, RunOnDevice);
+                        SetUnityTransformFromMatrix4x4(SceneRoot.transform, sceneToUnityTransformAsMatrix4x4.Value, RunOnDevice);
 
                         if(!RunOnDevice)
                         {
