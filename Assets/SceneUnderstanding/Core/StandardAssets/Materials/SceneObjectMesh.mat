@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SceneObjectMesh
-  m_Shader: {fileID: 4800000, guid: 5bdea20278144b11916d77503ba1467a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 5E52DA1E25154EF190E90542F3D8F21A, type: 3}
   m_ShaderKeywords: _DIRECTIONAL_LIGHT _HOVER_LIGHT _LOCAL_SPACE_TRIPLANAR_MAPPING
     _TRIPLANAR_MAPPING
   m_LightmapFlags: 4
