@@ -92,7 +92,6 @@
     public class SampleInputManager : MonoBehaviour
     {
         #region Member Variables
-        private GestureRecognizer gestureRecognizer;
         private bool isEnabled;
         private KeywordRecognizer keywordRecognizer;
         private Dictionary<KeyCode, InputAction> keyMap = new Dictionary<KeyCode, InputAction>();
@@ -423,12 +422,6 @@
             keywordRecognizer.OnPhraseRecognized += OnPhraseRecognized;
             keywordRecognizer.Start();
 
-            // Start listening for gestures
-            gestureRecognizer = new GestureRecognizer();
-            gestureRecognizer.SetRecognizableGestures(GestureSettings.Tap);
-            gestureRecognizer.Tapped += TapCallBack;
-            gestureRecognizer.StartCapturingGestures();
-
             // Notify
             InputEnabled.Invoke();
         }
@@ -450,14 +443,6 @@
                 keywordRecognizer.Stop();
                 keywordRecognizer.OnPhraseRecognized -= OnPhraseRecognized;
                 keywordRecognizer = null;
-            }
-
-            // Stop listening for gestures
-            if (gestureRecognizer != null)
-            {
-                gestureRecognizer.StopCapturingGestures();
-                gestureRecognizer.Tapped -= TapCallBack;
-                gestureRecognizer = null;
             }
 
             // Clear input maps
