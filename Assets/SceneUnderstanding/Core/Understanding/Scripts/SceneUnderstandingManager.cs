@@ -386,14 +386,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 Debug.Log($"{nameof(SceneUnderstandingManager)}.{nameof(DisplayDataAsync)} already in progress.");
                 return displayTask;
             }
-
-            // If we've displayed at least once and nothing has changed since last display, there is no new work to do
-            else if ((LastDisplayedSceneGuid != Guid.Empty) && (GetLatestSUSceneId() == LastDisplayedSceneGuid))
-            {
-                Debug.Log($"{nameof(SceneUnderstandingManager)}.{nameof(DisplayDataAsync)} nothing has changed since last display.");
-                return Task.CompletedTask;
-            }
-
             // We have real work to do. Time to start the coroutine and track it.
             else
             {

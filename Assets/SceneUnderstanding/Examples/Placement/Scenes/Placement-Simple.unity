@@ -580,6 +580,11 @@ PrefabInstance:
       propertyPath: QuerySceneFromDevice
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectRequestMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315524, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
       propertyPath: m_Name
