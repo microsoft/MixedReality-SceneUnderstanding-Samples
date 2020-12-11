@@ -92,7 +92,6 @@
     public class SampleInputManager : MonoBehaviour
     {
         #region Member Variables
-        private GestureRecognizer gestureRecognizer;
         private bool isEnabled;
         private KeywordRecognizer keywordRecognizer;
         private Dictionary<KeyCode, InputAction> keyMap = new Dictionary<KeyCode, InputAction>();
@@ -143,7 +142,7 @@
             // First batch of device-only commands
             if (suManager.QuerySceneFromDevice)
             {
-                inputActions.Add(InputAction.Create("Update", KeyCode.None, "Displays the latest data.", () => SuManager.StartDisplay()));
+                inputActions.Add(InputAction.Create("Update", KeyCode.None, "Displays the latest data.", async () => await SuManager.DisplayDataAsync()));
 
                 inputActions.Add(InputAction.Create("Toggle Auto Refresh", KeyCode.None, "Turns automatic updates on or off", () =>
                 {
@@ -155,58 +154,58 @@
                 }));
             }
 
-            inputActions.Add(InputAction.Create("Toggle Scene Objects", KeyCode.Alpha1, "Show / hide processed scene objects", () =>
+            inputActions.Add(InputAction.Create("Toggle Scene Objects", KeyCode.Alpha1, "Show / hide processed scene objects", async () =>
             {
                 SuManager.RenderSceneObjects = !SuManager.RenderSceneObjects;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
-            inputActions.Add(InputAction.Create("Toggle Labels", KeyCode.P, "Enable / Disable labels for scene objects", () => 
+            inputActions.Add(InputAction.Create("Toggle Labels", KeyCode.P, "Enable / Disable labels for scene objects", async () =>
             {
                 labeler.DisplayTextLabels = !labeler.DisplayTextLabels;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
-            inputActions.Add(InputAction.Create("Scene Objects Quad", KeyCode.Alpha2, "Quad Mode", () =>
+            inputActions.Add(InputAction.Create("Scene Objects Quad", KeyCode.Alpha2, "Quad Mode", async () =>
             {
                 SuManager.SceneObjectRequestMode = RenderMode.Quad;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
-            inputActions.Add(InputAction.Create("Scene Objects Mesh", KeyCode.Alpha3, "Mesh Mode", () =>
+            inputActions.Add(InputAction.Create("Scene Objects Mesh", KeyCode.Alpha3, "Mesh Mode", async () =>
             {
                 SuManager.SceneObjectRequestMode = RenderMode.Mesh;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
-            inputActions.Add(InputAction.Create("Scene Objects Wireframe", KeyCode.Alpha4, "Wireframe Mode", () =>
+            inputActions.Add(InputAction.Create("Scene Objects Wireframe", KeyCode.Alpha4, "Wireframe Mode", async () =>
             {
                 SuManager.SceneObjectRequestMode = RenderMode.Wireframe;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
-            inputActions.Add(InputAction.Create("Scene Objects Mask", KeyCode.None, "Mask Mode", () =>
+            inputActions.Add(InputAction.Create("Scene Objects Mask", KeyCode.None, "Mask Mode", async () =>
             {
                 SuManager.SceneObjectRequestMode = RenderMode.QuadWithMask;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
-            inputActions.Add(InputAction.Create("Toggle Platforms", KeyCode.Alpha5, "Enable / Disable large horizontal surfaces", () =>
+            inputActions.Add(InputAction.Create("Toggle Platforms", KeyCode.Alpha5, "Enable / Disable large horizontal surfaces", async () =>
             {
                 SuManager.RenderPlatformSceneObjects = !SuManager.RenderPlatformSceneObjects;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
-            inputActions.Add(InputAction.Create("Toggle Background", KeyCode.Alpha6, "Enable / Disable background objects", () =>
+            inputActions.Add(InputAction.Create("Toggle Background", KeyCode.Alpha6, "Enable / Disable background objects", async () =>
             {
                 SuManager.RenderBackgroundSceneObjects = !SuManager.RenderBackgroundSceneObjects;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
-            inputActions.Add(InputAction.Create("Toggle Unknown", KeyCode.Alpha7, "Enable / Disable unknown objects", () =>
+            inputActions.Add(InputAction.Create("Toggle Unknown", KeyCode.Alpha7, "Enable / Disable unknown objects", async () =>
             {
                 SuManager.RenderUnknownSceneObjects = !SuManager.RenderUnknownSceneObjects;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
             inputActions.Add(InputAction.Create("Toggle Inferred", KeyCode.Alpha8, "Enable / Disable completely inferred surfaces (requires refresh)", () =>
@@ -214,10 +213,10 @@
                 SuManager.RequestInferredRegions = !SuManager.RequestInferredRegions;
             }));
 
-            inputActions.Add(InputAction.Create("Toggle World", KeyCode.Alpha9, "Show or hide the world mesh", () =>
+            inputActions.Add(InputAction.Create("Toggle World", KeyCode.Alpha9, "Show or hide the world mesh", async () =>
             {
                 SuManager.RenderWorldMesh = !SuManager.RenderWorldMesh;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
             inputActions.Add(InputAction.Create("Mesh Coarse", KeyCode.None, "Low quality mesh", () =>
@@ -242,10 +241,10 @@
 
             inputActions.Add(InputAction.Create("Toggle MiniMap", KeyCode.M, "Show or hide the mini map", MiniMapToggle));
 
-            inputActions.Add(InputAction.Create("Toggle Ghost Mode", KeyCode.O, "Enable / Disable Ghost Mode (Scene Objects will be invisible but still occlude)", () => 
+            inputActions.Add(InputAction.Create("Toggle Ghost Mode", KeyCode.O, "Enable / Disable Ghost Mode (Scene Objects will be invisible but still occlude)", async () =>
             {
                 SuManager.IsInGhostMode = !SuManager.IsInGhostMode;
-                SuManager.StartDisplay();
+                await SuManager.DisplayDataAsync();
             }));
 
             // Last batch of device-only commands
@@ -356,12 +355,12 @@
             }
         }
 
-        private void TapCallBack(TappedEventArgs args)
+        private async void TapCallBack(TappedEventArgs args)
         {
             Debug.Log("SUInputManager.TapCallBack: Tap recognized.");
             if (suManager != null)
             {
-                suManager.StartDisplay();
+                await suManager.DisplayDataAsync();
             }
         }
         #endregion // Overrides / Event Handlers
@@ -423,12 +422,6 @@
             keywordRecognizer.OnPhraseRecognized += OnPhraseRecognized;
             keywordRecognizer.Start();
 
-            // Start listening for gestures
-            gestureRecognizer = new GestureRecognizer();
-            gestureRecognizer.SetRecognizableGestures(GestureSettings.Tap);
-            gestureRecognizer.Tapped += TapCallBack;
-            gestureRecognizer.StartCapturingGestures();
-
             // Notify
             InputEnabled.Invoke();
         }
@@ -450,14 +443,6 @@
                 keywordRecognizer.Stop();
                 keywordRecognizer.OnPhraseRecognized -= OnPhraseRecognized;
                 keywordRecognizer = null;
-            }
-
-            // Stop listening for gestures
-            if (gestureRecognizer != null)
-            {
-                gestureRecognizer.StopCapturingGestures();
-                gestureRecognizer.Tapped -= TapCallBack;
-                gestureRecognizer = null;
             }
 
             // Clear input maps

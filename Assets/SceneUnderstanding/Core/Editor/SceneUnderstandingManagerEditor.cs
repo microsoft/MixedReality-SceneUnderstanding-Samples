@@ -13,6 +13,10 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
     [CustomEditor(typeof(SceneUnderstandingManager))]
     public class SceneUnderstandingManagerEditor : Editor
     {
+        // Section hiding
+        bool showColors = false;
+        bool showLayers = false;
+
         // Reference to the target script
         SceneUnderstandingManager SUManager;
 
@@ -44,6 +48,14 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         SerializedProperty serializedRenderColorUnknown;
         SerializedProperty serializedRenderColorCompletelyInferred;
         SerializedProperty serializedRenderColorWorld;
+        SerializedProperty serializedLayerBackGrounds;
+        SerializedProperty serializedLayerWall;
+        SerializedProperty serializedLayerFloor;
+        SerializedProperty serializedLayerCeiling;
+        SerializedProperty serializedLayerPlatform;
+        SerializedProperty serializedLayerUnknown;
+        SerializedProperty serializedLayerCompletelyInferred;
+        SerializedProperty serializedLayerWorld;
         SerializedProperty serializedisInGhostMode;
         SerializedProperty serializedAddColliders;
         SerializedProperty serializedOnLoadStartedCallback;
@@ -55,62 +67,72 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
         private void OnEnable()
         {
-            // Initialize all our properties. find the corresponding variable for each 
+            // Initialize all our properties. find the corresponding variable for each
             // serialized property.
 
             // Target Component
             SUManager = this.target as SceneUnderstandingManager;
 
             serializedQuerySceneFromDevice = serializedObject.FindProperty("QuerySceneFromDevice");
-            
+
             // Settings for loading Scenes from file and Root GameObject, (container of the scene)
-            serializedSUScene        = serializedObject.FindProperty("SUSerializedScenePaths");
+            serializedSUScene = serializedObject.FindProperty("SUSerializedScenePaths");
             serializedRootGameObject = serializedObject.FindProperty("SceneRoot");
 
             // On Device Request Settings
             serializedBoudingSphereRadiousInMeters = serializedObject.FindProperty("BoundingSphereRadiusInMeters");
-            serializedAutoRefreshData              = serializedObject.FindProperty("AutoRefresh");
+            serializedAutoRefreshData = serializedObject.FindProperty("AutoRefresh");
             serializedAutoRefreshIntervalInSeconds = serializedObject.FindProperty("AutoRefreshIntervalInSeconds");
 
             // Request Settings
-            serializedRequestMode             = serializedObject.FindProperty("SceneObjectRequestMode");
-            serializedMeshQuality             = serializedObject.FindProperty("MeshQuality");
-            serializedRequestInferredRegions  = serializedObject.FindProperty("RequestInferredRegions");
+            serializedRequestMode = serializedObject.FindProperty("SceneObjectRequestMode");
+            serializedMeshQuality = serializedObject.FindProperty("MeshQuality");
+            serializedRequestInferredRegions = serializedObject.FindProperty("RequestInferredRegions");
 
             // Reference to all materials used.
-            serializedMeshMaterial      = serializedObject.FindProperty("SceneObjectMeshMaterial");
-            serializedQuadMaterial      = serializedObject.FindProperty("SceneObjectQuadMaterial");
+            serializedMeshMaterial = serializedObject.FindProperty("SceneObjectMeshMaterial");
+            serializedQuadMaterial = serializedObject.FindProperty("SceneObjectQuadMaterial");
             serializedWireFrameMaterial = serializedObject.FindProperty("SceneObjectWireframeMaterial");
             serializedInvisibleMaterial = serializedObject.FindProperty("TransparentOcclussion");
 
             // Reference to all toggles and filters for visualization
-            serializedRenderSceneObjects                   = serializedObject.FindProperty("RenderSceneObjects");
-            serializedRenderPlatformsObjects               = serializedObject.FindProperty("RenderPlatformSceneObjects");
-            serializedRenderBackgroundObjects              = serializedObject.FindProperty("RenderBackgroundSceneObjects");
-            serializedRenderUnknownObjects                 = serializedObject.FindProperty("RenderUnknownSceneObjects");
-            serializedRenderWorldMesh                      = serializedObject.FindProperty("RenderWorldMesh");
+            serializedRenderSceneObjects = serializedObject.FindProperty("RenderSceneObjects");
+            serializedRenderPlatformsObjects = serializedObject.FindProperty("RenderPlatformSceneObjects");
+            serializedRenderBackgroundObjects = serializedObject.FindProperty("RenderBackgroundSceneObjects");
+            serializedRenderUnknownObjects = serializedObject.FindProperty("RenderUnknownSceneObjects");
+            serializedRenderWorldMesh = serializedObject.FindProperty("RenderWorldMesh");
             serializedRenderCompletelyInferredSceneObjects = serializedObject.FindProperty("RenderCompletelyInferredSceneObjects");
 
             // Reference for all colors used
-            serializedRenderColorBackGrounds        = serializedObject.FindProperty("ColorForBackgroundObjects");
-            serializedRenderColorWall               = serializedObject.FindProperty("ColorForWallObjects");
-            serializedRenderColorFloor              = serializedObject.FindProperty("ColorForFloorObjects");
-            serializedRenderColorCeiling            = serializedObject.FindProperty("ColorForCeilingObjects");
-            serializedRenderColorPlatform           = serializedObject.FindProperty("ColorForPlatformsObjects");
-            serializedRenderColorUnknown            = serializedObject.FindProperty("ColorForUnknownObjects");
+            serializedRenderColorBackGrounds = serializedObject.FindProperty("ColorForBackgroundObjects");
+            serializedRenderColorWall = serializedObject.FindProperty("ColorForWallObjects");
+            serializedRenderColorFloor = serializedObject.FindProperty("ColorForFloorObjects");
+            serializedRenderColorCeiling = serializedObject.FindProperty("ColorForCeilingObjects");
+            serializedRenderColorPlatform = serializedObject.FindProperty("ColorForPlatformsObjects");
+            serializedRenderColorUnknown = serializedObject.FindProperty("ColorForUnknownObjects");
             serializedRenderColorCompletelyInferred = serializedObject.FindProperty("ColorForInferredObjects");
-            serializedRenderColorWorld              = serializedObject.FindProperty("ColorForWorldObjects");
+            serializedRenderColorWorld = serializedObject.FindProperty("ColorForWorldObjects");
+
+            // Reference for all layers used
+            serializedLayerBackGrounds = serializedObject.FindProperty("LayerForBackgroundObjects");
+            serializedLayerWall = serializedObject.FindProperty("LayerForWallObjects");
+            serializedLayerFloor = serializedObject.FindProperty("LayerForFloorObjects");
+            serializedLayerCeiling = serializedObject.FindProperty("LayerForCeilingObjects");
+            serializedLayerPlatform = serializedObject.FindProperty("LayerForPlatformsObjects");
+            serializedLayerUnknown = serializedObject.FindProperty("LayerForUnknownObjects");
+            serializedLayerCompletelyInferred = serializedObject.FindProperty("LayerForInferredObjects");
+            serializedLayerWorld = serializedObject.FindProperty("LayerForWorldObjects");
 
             // Toggle for Occlusion Mode / Ghost Mode
             serializedisInGhostMode = serializedObject.FindProperty("IsInGhostMode");
 
-            // Toggle for Colliders 
+            // Toggle for Colliders
             serializedAddColliders = serializedObject.FindProperty("AddColliders");
 
             // Reference for Callbacks
-            serializedOnLoadStartedCallback  = serializedObject.FindProperty("OnLoadStarted");
+            serializedOnLoadStartedCallback = serializedObject.FindProperty("OnLoadStarted");
             serializedOnLoadFinishedCallback = serializedObject.FindProperty("OnLoadFinished");
-            
+
         }
 
         public override void OnInspectorGUI()
@@ -125,19 +147,19 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             EditorGUILayout.PropertyField(serializedQuerySceneFromDevice);
 
             // Scene from File
-            if(!SUManager.QuerySceneFromDevice)
+            if (!SUManager.QuerySceneFromDevice)
             {
                 GUILayout.Label("Scene Fragments: ", EditorStyles.boldLabel);
-                if(GUILayout.Button("Add Item", GUILayout.Width(buttonWidth)))
+                if (GUILayout.Button("Add Item", GUILayout.Width(buttonWidth)))
                 {
                     SUManager.SUSerializedScenePaths.Add(null);
                 }
 
-                if(GUILayout.Button("Remove Item", GUILayout.Width(buttonWidth)))
+                if (GUILayout.Button("Remove Item", GUILayout.Width(buttonWidth)))
                 {
-                    if(SUManager.SUSerializedScenePaths.Count >= 1)
+                    if (SUManager.SUSerializedScenePaths.Count >= 1)
                     {
-                        SUManager.SUSerializedScenePaths.RemoveAt(SUManager.SUSerializedScenePaths.Count -1);
+                        SUManager.SUSerializedScenePaths.RemoveAt(SUManager.SUSerializedScenePaths.Count - 1);
                     }
                 }
 
@@ -154,17 +176,17 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             // Scene Root
             EditorGUILayout.PropertyField(serializedRootGameObject);
             GUILayout.Space(verticalSpaceBetweenHeaders);
-            
+
             // On Device Request Settings
-            if(SUManager.QuerySceneFromDevice)
+            if (SUManager.QuerySceneFromDevice)
             {
                 GUILayout.Label("On Device Request Settings", EditorStyles.boldLabel);
                 GUIContent BoundingSphereRadiousInMetersContent = new GUIContent("Bounding Sphere Radious In Meters", "Radius of the sphere around the camera, which is used to query the environment.");
                 serializedBoudingSphereRadiousInMeters.floatValue = EditorGUILayout.Slider(BoundingSphereRadiousInMetersContent, serializedBoudingSphereRadiousInMeters.floatValue, 5.0f, 100.0f);
 
                 EditorGUILayout.PropertyField(serializedAutoRefreshData);
-                
-                if(SUManager.AutoRefresh)
+
+                if (SUManager.AutoRefresh)
                 {
                     GUIContent AutoRefreshIntervalInSeconds = new GUIContent("Auto Refresh Interval In Seconds", "Interval to use for auto refresh, in seconds.");
                     serializedAutoRefreshIntervalInSeconds.floatValue = EditorGUILayout.Slider(AutoRefreshIntervalInSeconds, serializedAutoRefreshIntervalInSeconds.floatValue, 1.0f, 60.0f);
@@ -179,14 +201,54 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             GUILayout.Space(verticalSpaceBetweenHeaders);
 
             // Colors
-            EditorGUILayout.PropertyField(serializedRenderColorBackGrounds);
-            EditorGUILayout.PropertyField(serializedRenderColorWall);
-            EditorGUILayout.PropertyField(serializedRenderColorFloor);
-            EditorGUILayout.PropertyField(serializedRenderColorCeiling);
-            EditorGUILayout.PropertyField(serializedRenderColorPlatform);
-            EditorGUILayout.PropertyField(serializedRenderColorUnknown);
-            EditorGUILayout.PropertyField(serializedRenderColorCompletelyInferred);
-            EditorGUILayout.PropertyField(serializedRenderColorWorld);
+            showColors = EditorGUILayout.BeginFoldoutHeaderGroup(showColors, "Colors");
+            if (showColors)
+            {
+                EditorGUILayout.PropertyField(serializedRenderColorBackGrounds);
+                EditorGUILayout.PropertyField(serializedRenderColorWall);
+                EditorGUILayout.PropertyField(serializedRenderColorFloor);
+                EditorGUILayout.PropertyField(serializedRenderColorCeiling);
+                EditorGUILayout.PropertyField(serializedRenderColorPlatform);
+                EditorGUILayout.PropertyField(serializedRenderColorUnknown);
+                EditorGUILayout.PropertyField(serializedRenderColorCompletelyInferred);
+                EditorGUILayout.PropertyField(serializedRenderColorWorld);
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            GUILayout.Space(verticalSpaceBetweenHeaders);
+
+            // Layers
+            showLayers = EditorGUILayout.BeginFoldoutHeaderGroup(showLayers, "Layers");
+            if (showLayers)
+            {
+                serializedLayerBackGrounds.intValue = EditorGUILayout.LayerField(serializedLayerBackGrounds.displayName, serializedLayerBackGrounds.intValue);
+                serializedLayerWall.intValue = EditorGUILayout.LayerField(serializedLayerWall.displayName, serializedLayerWall.intValue);
+                serializedLayerFloor.intValue = EditorGUILayout.LayerField(serializedLayerFloor.displayName, serializedLayerFloor.intValue);
+                serializedLayerCeiling.intValue = EditorGUILayout.LayerField(serializedLayerCeiling.displayName, serializedLayerCeiling.intValue);
+                serializedLayerPlatform.intValue = EditorGUILayout.LayerField(serializedLayerPlatform.displayName, serializedLayerPlatform.intValue);
+                serializedLayerUnknown.intValue = EditorGUILayout.LayerField(serializedLayerUnknown.displayName, serializedLayerUnknown.intValue);
+                serializedLayerCompletelyInferred.intValue = EditorGUILayout.LayerField(serializedLayerCompletelyInferred.displayName, serializedLayerCompletelyInferred.intValue);
+                serializedLayerWorld.intValue = EditorGUILayout.LayerField(serializedLayerWorld.displayName, serializedLayerWorld.intValue);
+
+                // Button for spatial layers
+                int spatialLayer = LayerMask.NameToLayer("Spatial Awareness");
+                if (spatialLayer > -1)
+                {
+                    // Did they click the button?
+                    if (GUILayout.Button("Set to Spatial Layer"))
+                    {
+                        // Only change ones that are on the "Default" layer
+                        if (serializedLayerBackGrounds.intValue == 0) { serializedLayerBackGrounds.intValue = spatialLayer; }
+                        if (serializedLayerWall.intValue == 0) { serializedLayerWall.intValue = spatialLayer; }
+                        if (serializedLayerFloor.intValue == 0) { serializedLayerFloor.intValue = spatialLayer; }
+                        if (serializedLayerCeiling.intValue == 0) { serializedLayerCeiling.intValue = spatialLayer; }
+                        if (serializedLayerPlatform.intValue == 0) { serializedLayerPlatform.intValue = spatialLayer; }
+                        if (serializedLayerUnknown.intValue == 0) { serializedLayerUnknown.intValue = spatialLayer; }
+                        if (serializedLayerCompletelyInferred.intValue == 0) { serializedLayerCompletelyInferred.intValue = spatialLayer; }
+                        if (serializedLayerWorld.intValue == 0) { serializedLayerWorld.intValue = spatialLayer; }
+                    }
+                }
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
             GUILayout.Space(verticalSpaceBetweenHeaders);
 
             // Materials
@@ -220,10 +282,10 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             GUILayout.Space(verticalSpaceBetweenHeaders);
 
             // On Editor only
-            if(!SUManager.QuerySceneFromDevice)
+            if (!SUManager.QuerySceneFromDevice)
             {
                 GUILayout.Label("Actions", EditorStyles.boldLabel);
-                if(GUILayout.Button("Bake Scene", GUILayout.Width(buttonWidth)))
+                if (GUILayout.Button("Bake Scene", GUILayout.Width(buttonWidth)))
                 {
                     SUManager.BakeScene();
                 }
