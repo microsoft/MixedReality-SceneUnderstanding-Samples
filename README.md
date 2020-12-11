@@ -7,7 +7,7 @@ To learn more about Scene Understanding, please visit this link: https://docs.mi
 To learn more about Scene Understanding SDK, please visit this link: https://docs.microsoft.com/en-us/windows/mixed-reality/scene-understanding-sdk.  
 
 # Prerequisites
-Unity 2019.2.21f1 or greater.  
+Unity 2019.4.11f1 or greater.  
 Visual Studio 2017 or 2019 with Universal Windows Platform components.  
 Windows SDK version 10.0.18362.0 or greater.
 Up to date version of Unity Hub.
