@@ -749,7 +749,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 System.Numerics.Vector3[] meshVertices = new System.Numerics.Vector3[suMesh.VertexCount];
                 suMesh.GetVertexPositions(meshVertices);
 
-                uint indexOffset = (uint)combinedMeshIndices.Count;
+                uint indexOffset = (uint)combinedMeshVertices.Count;
 
                 // Store the Indices and Vertices
                 for (int i = 0; i < meshVertices.Length; i++)
