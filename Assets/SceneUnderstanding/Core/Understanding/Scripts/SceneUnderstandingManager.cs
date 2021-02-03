@@ -737,7 +737,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
             foreach (SceneUnderstanding.SceneMesh suMesh in suMeshes)
             {
-                if (suMeshes == null)
+                if (suMesh == null)
                 {
                     Debug.LogWarning("SceneUnderstandingManager.GenerateUnityMeshFromSceneObjectMeshes: Mesh is null.");
                     continue;
