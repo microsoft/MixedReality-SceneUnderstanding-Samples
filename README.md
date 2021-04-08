@@ -60,6 +60,19 @@ To run this sample on the PC, please follow the instructions below:
 3. Ensure SU Serialized Scene Paths on the Scene Understanding component is referring to a serialized Scene Understanding scene, examples scenes are provided under the examples folder
 4. Click 'Play' in the Editor.
 
+# Common Issues - Troubleshooting
+
+Problem:
+    Multiple errors occur in SceneUnderstandingManager.cs
+    Line 571.
+    System.Numerics.Matrix4x4 converted4x4LocationMatrix = ConvertRightHandedMatrix4x4ToLeftHanded(suObject.GetLocationAsMatrix());
+    error CS7069: Reference to type 'Matrix4x4' claims it is defined in 'System.Numerics', but it could not be found
+
+Solution:
+    Switch it to .Net 4.x Api Compatibility to fix.
+    Build Settings > Player Settings > Other Settings > Api Compatibility Level > .Net 4.x
+    This setting might revert when upgrading Unity versions
+
 # Additional Notes
 
 - We have stopped using NugetForUnity and we will no longer support that path. if you still want our legacy build with NugetForUnity please checkout our legacy branch: [microsoft/MixedReality-SceneUnderstanding-Samples at LegacyNugetBuild (github.com)](https://github.com/microsoft/MixedReality-SceneUnderstanding-Samples/tree/LegacyNugetBuild) 
