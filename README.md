@@ -13,8 +13,9 @@ products:
 
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-> [!IMPORTANT]
-> This sample has been validated up to Unity 2019.4 + Legacy XR.
+Supported Unity versions | Built with XR configuration
+:-----------------: | :----------------: | 
+Unity 2019.4 | Legacy XR | 
 
 A Unity-based sample application that showcases Scene Understanding on HoloLens 2. When this sample is deployed on a HoloLens, it will show the virtual representation of your real environment. For PC deployment, the sample will load a serialized scene (included under **Assets\\SceneUnderstanding\\StandardAssets\\SUScenes**) and display it. A help menu is presented on launch, which provides information about all the input commands available in the application.  
 
