@@ -53,8 +53,8 @@ To learn more about Scene Understanding, visit our [Scene Understanding](https:/
 
 Before trying to build the project, go to **File > Build Settings** and make sure all samples scenes in the **SceneUnderstanding/Examples** folder appear in the list.
 
-> [!IMPORTANT]
-> The **Home-Examples** scene is not a SceneUnderstanding Scene per se, but rather a Menu Scene from which you can load the other example scenes. You can load any of the other example scenes using voice commands.
+> **[!IMPORTANT]
+> The **Home-Examples** scene is not a SceneUnderstanding Scene per se, but rather a Menu Scene from which you can load the other example scenes. You can load any of the other example scenes using voice commands.**
 
 ### Running on HoloLens 2
 
@@ -99,8 +99,8 @@ Solution:
 * We have stopped using NugetForUnity and we will no longer support that path. If you still want our legacy build with NugetForUnity please checkout our legacy branch: [microsoft/MixedReality-SceneUnderstanding-Samples at LegacyNugetBuild (github.com)](https://github.com/microsoft/MixedReality-SceneUnderstanding-Samples/tree/LegacyNugetBuild) 
     * **This branch is deprecated and we will not support updates on it.**
 
-> [!NOTE]
-> When running on your Hololens, all the interactive commands are voice commands. You're require to speak to interact with the scene when running on Hololens. Say **Scene Objects Wireframe**, **Load NavMesh**, **Toggle Auto Refresh** and so on.
+> **[!NOTE]
+> When running on your Hololens, all the interactive commands are voice commands. You're require to speak to interact with the scene when running on Hololens. Say **Scene Objects Wireframe**, **Load NavMesh**, **Toggle Auto Refresh** and so on.**
 
 ## Contributing
 
