@@ -355,14 +355,6 @@
             }
         }
 
-        private async void TapCallBack(TappedEventArgs args)
-        {
-            Debug.Log("SUInputManager.TapCallBack: Tap recognized.");
-            if (suManager != null)
-            {
-                await suManager.DisplayDataAsync();
-            }
-        }
         #endregion // Overrides / Event Handlers
 
         #region Unity Overrides

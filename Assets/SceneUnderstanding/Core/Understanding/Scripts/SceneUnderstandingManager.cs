@@ -323,7 +323,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         /// <param name="lod">If world mesh is enabled, lod controls the resolution of the mesh returned.</param>
         private void RetrieveData(float boundingSphereRadiusInMeters, bool enableQuads, bool enableMeshes, bool enableInference, bool enableWorldMesh, SceneUnderstanding.SceneMeshLevelOfDetail lod)
         {
-            Debug.Log("SceneUnderstandingManager.RetrieveData: Started.");
+            //Debug.Log("SceneUnderstandingManager.RetrieveData: Started.");
 
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
             stopwatch.Start();
@@ -356,6 +356,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             }
 
             stopwatch.Stop();
+            /*
             Debug.Log(string.Format("SceneUnderstandingManager.RetrieveData: Completed. Radius: {0}; Quads: {1}; Meshes: {2}; Inference: {3}; WorldMesh: {4}; LOD: {5}; Bytes: {6}; Time (secs): {7};",
                                     boundingSphereRadiusInMeters,
                                     enableQuads,
@@ -365,6 +366,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                                     lod,
                                     (LatestSUSceneData == null ? 0 : LatestSUSceneData.Length),
                                     stopwatch.Elapsed.TotalSeconds));
+            */
         }
 
         #endregion
@@ -513,6 +515,9 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 // Run CallBacks for Onload Finished
                 OnLoadFinished.Invoke();
 
+                //Dispose of the Scene when we are done
+                suScene.Dispose();
+
                 // Let the task complete
                 completionSource.SetResult(true);
             }
@@ -596,12 +601,12 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 geometryObject.transform.localRotation = Quaternion.identity;
             }
 
-            if (RunOnDevice)
+            /*if (RunOnDevice)
             {
                 // If the Scene is running on a device, add a World Anchor to align the Unity object
                 // to the XR scene
                 unityParentHolderObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
-            }
+            }*/
 
             //Return that the Scene Object was indeed represented as a unity object and wasn't skipped
             return true;
@@ -664,7 +669,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
                     Material tempMaterial = GetMaterial(suObject.Kind, SceneObjectRequestMode);
 
-                    GameObject gameObjectToReturn = new GameObject(suObject.Kind.ToString());
+                    GameObject gameObjectToReturn = new GameObject(suObject.Kind.ToString() + "Quad");
                     gameObjectToReturn.layer = layer;
                     AddMeshToUnityObject(gameObjectToReturn, unityMesh, color, tempMaterial);
 
@@ -1063,8 +1068,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             if (RunOnDevice)
             {
                 Windows.Perception.Spatial.SpatialCoordinateSystem sceneCoordinateSystem = Microsoft.Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview.CreateCoordinateSystemForNode(scene.OriginSpatialGraphNodeId);
-                HolograhicFrameData holoFrameData = Marshal.PtrToStructure<HolograhicFrameData>(UnityEngine.XR.XRDevice.GetNativePtr());
-                Windows.Perception.Spatial.SpatialCoordinateSystem unityCoordinateSystem = Microsoft.Windows.Perception.Spatial.SpatialCoordinateSystem.FromNativePtr(holoFrameData.ISpatialCoordinateSystemPtr);
+                Windows.Perception.Spatial.SpatialCoordinateSystem unityCoordinateSystem = Microsoft.Windows.Perception.Spatial.SpatialCoordinateSystem.FromNativePtr(UnityEngine.XR.WindowsMR.WindowsMREnvironment.OriginSpatialCoordinateSystem);
 
                 sceneToUnityTransform = sceneCoordinateSystem.TryGetTransformTo(unityCoordinateSystem);
 
