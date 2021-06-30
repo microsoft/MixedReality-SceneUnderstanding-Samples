@@ -43,45 +43,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf91772e59effdc478493c7b4907aa27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunOnDevice: 1
+  QuerySceneFromDevice: 1
   SUSerializedScenePaths:
   - {fileID: 4900000, guid: 60afa97ae67aa8044b1a2239396b5647, type: 3}
   SceneRoot: {fileID: 0}
   BoundingSphereRadiusInMeters: 10
   AutoRefresh: 1
   AutoRefreshIntervalInSeconds: 10
-  SceneObjectRenderMode: 2
-  RenderQuality: 1
-  ColorForBackgroundObjs: {r: 0.953, g: 0.475, b: 0.875, a: 1}
-  ColorForWallObjs: {r: 0.953, g: 0.494, b: 0.475, a: 1}
-  ColorForFloorObjs: {r: 0.733, g: 0.953, b: 0.475, a: 1}
-  ColorForCeilingObjs: {r: 0.475, g: 0.596, b: 0.953, a: 1}
-  ColorForPlatformsObjs: {r: 0.204, g: 0.792, b: 0.714, a: 1}
-  ColorForUnknownObjs: {r: 1, g: 1, b: 1, a: 1}
-  ColorForInferredObjs: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  ColorForWorldObjs: {r: 0, g: 1, b: 1, a: 1}
-  SceneObjectMeshMaterial: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be,
+  SceneObjectRequestMode: 2
+  MeshQuality: 1
+  RequestInferredRegions: 1
+  ColorForBackgroundObjects: {r: 0.953, g: 0.475, b: 0.875, a: 1}
+  ColorForWallObjects: {r: 0.953, g: 0.494, b: 0.475, a: 1}
+  ColorForFloorObjects: {r: 0.733, g: 0.953, b: 0.475, a: 1}
+  ColorForCeilingObjects: {r: 0.475, g: 0.596, b: 0.953, a: 1}
+  ColorForPlatformsObjects: {r: 0.204, g: 0.792, b: 0.714, a: 1}
+  ColorForUnknownObjects: {r: 1, g: 1, b: 1, a: 1}
+  ColorForInferredObjects: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  ColorForWorldObjects: {r: 0, g: 1, b: 1, a: 1}
+  LayerForBackgroundObjects: 0
+  LayerForWallObjects: 0
+  LayerForFloorObjects: 0
+  LayerForCeilingObjects: 0
+  LayerForPlatformsObjects: 0
+  LayerForUnknownObjects: 0
+  LayerForInferredObjects: 0
+  LayerForWorldObjects: 0
+  SceneObjectBackgroundMeshMaterial: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be,
     type: 2}
-  SceneObjectQuadMaterial: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f,
+  SceneObjectWallMeshMaterial: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be,
+    type: 2}
+  SceneObjectFloorMeshMaterial: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be,
+    type: 2}
+  SceneObjectCeilingMeshMaterial: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be,
+    type: 2}
+  SceneObjectPlatformMeshMaterial: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be,
+    type: 2}
+  SceneObjectUnknownMeshMaterial: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be,
+    type: 2}
+  SceneObjectInferredMeshMaterial: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be,
+    type: 2}
+  SceneObjectBackgroundQuadMaterial: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f,
+    type: 2}
+  SceneObjectWallQuadMaterial: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f,
+    type: 2}
+  SceneObjectFloorQuadMaterial: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f,
+    type: 2}
+  SceneObjectCeilingQuadMaterial: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f,
+    type: 2}
+  SceneObjectPlatformQuadMaterial: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f,
+    type: 2}
+  SceneObjectUnknownQuadMaterial: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f,
+    type: 2}
+  SceneObjectInferredQuadMaterial: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f,
     type: 2}
   SceneObjectWireframeMaterial: {fileID: 2100000, guid: 86ec9582d8dcbc34bac58ae621e24af9,
     type: 2}
   TransparentOcclussion: {fileID: 2100000, guid: aeb8d1d6bacc40846ba6b49f18532a87,
     type: 2}
   RenderSceneObjects: 1
-  DisplayTextLabels: 1
   RenderPlatformSceneObjects: 1
   RenderBackgroundSceneObjects: 1
   RenderUnknownSceneObjects: 1
   RenderWorldMesh: 0
-  RequestInferredRegions: 1
   RenderCompletelyInferredSceneObjects: 1
   AddColliders: 1
-  isInGhostMode: 0
+  IsInGhostMode: 0
   OnLoadStarted:
     m_PersistentCalls:
       m_Calls: []
   OnLoadFinished:
     m_PersistentCalls:
       m_Calls: []
-  timeElapsedSinceLastAutoRefresh: 0
+  TimeElapsedSinceLastAutoRefresh: 0

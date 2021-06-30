@@ -169,7 +169,7 @@ PrefabInstance:
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
       propertyPath: QuerySceneFromDevice
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
@@ -193,9 +193,79 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
+      propertyPath: SceneObjectWallMeshMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectWallQuadMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
       propertyPath: RenderBackgroundSceneObjects
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectFloorMeshMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectFloorQuadMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectCeilingMeshMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectCeilingQuadMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectUnknownMeshMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectUnknownQuadMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectInferredMeshMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectInferredQuadMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectPlatformMeshMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectPlatformQuadMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectBackgroundMeshMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be, type: 2}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: SceneObjectBackgroundQuadMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b965b90bb115d7e4cad26c038848258f, type: 2}
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
       propertyPath: RenderCompletelyInferredSceneObjects
