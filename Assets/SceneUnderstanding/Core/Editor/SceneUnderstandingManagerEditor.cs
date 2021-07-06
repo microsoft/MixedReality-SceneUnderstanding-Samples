@@ -75,7 +75,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         SerializedProperty serializedLayerCompletelyInferred;
         SerializedProperty serializedLayerWorld;
         SerializedProperty serializedisInGhostMode;
-
         SerializedProperty serializedAddCollidersInPlatformSceneObjects;
         SerializedProperty serializedAddCollidersInBackgroundSceneObjects;
         SerializedProperty serializedAddCollidersInUnknownSceneObjects;
@@ -84,9 +83,9 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         SerializedProperty serializedAddCollidersInWallSceneObjects;
         SerializedProperty serializedAddCollidersInFloorSceneObjects;
         SerializedProperty serializedAddCollidersCeilingSceneObjects;
-
         SerializedProperty serializedOnLoadStartedCallback;
         SerializedProperty serializedOnLoadFinishedCallback;
+        SerializedProperty serializedAlignSUObjectsNormalToUnityYAxis;
 
         // Const Floats for Layout dimensions
         const float buttonWidth = 90.0f;
@@ -184,6 +183,8 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             serializedOnLoadStartedCallback = serializedObject.FindProperty("OnLoadStarted");
             serializedOnLoadFinishedCallback = serializedObject.FindProperty("OnLoadFinished");
 
+            // Toggle to Align SU Objects Normal to Unity's Y axis
+            serializedAlignSUObjectsNormalToUnityYAxis = serializedObject.FindProperty("AlignSUObjectsNormalToUnityYAxis");
         }
 
         public override void OnInspectorGUI()
@@ -364,6 +365,10 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
             // Ghost Mode
             EditorGUILayout.PropertyField(serializedisInGhostMode);
+            GUILayout.Space(verticalSpaceBetweenHeaders);
+
+            // Alignment
+            EditorGUILayout.PropertyField(serializedAlignSUObjectsNormalToUnityYAxis);
             GUILayout.Space(verticalSpaceBetweenHeaders);
 
             // Callbacks

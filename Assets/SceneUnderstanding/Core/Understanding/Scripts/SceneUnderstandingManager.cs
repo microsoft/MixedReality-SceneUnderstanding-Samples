@@ -188,6 +188,10 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         [Tooltip("Toggle Ghost Mode, (invisible objects that still occlude)")]
         public bool IsInGhostMode = false;
 
+        [Header("Alignment")]
+        [Tooltip("Align SU Objects Normal to Unity's Y axis")]
+        public bool AlignSUObjectsNormalToUnityYAxis = true;
+
         [Header("Events")]
         [Tooltip("User function that get called when a Scene Understanding event happens")]
         public UnityEvent OnLoadStarted;
@@ -211,7 +215,8 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         private bool DisplayFromDiskStarted = false;
         private bool RunOnDevice;
         private readonly int NumberOfSceneObjectsToLoadPerFrame = 5;
-
+        private SceneUnderstanding.Scene cachedDeserializedScene = null;
+        private readonly object cachedDeserializedSceneLock = new object();
         #endregion
 
         #region Unity Start and Update
@@ -345,6 +350,21 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             return suSceneIdToReturn;
         }
 
+        public Scene GetLatestDeserializedScene()
+        {
+            Scene sceneToReturn = null;
+
+            lock(cachedDeserializedSceneLock)
+            {
+                if(cachedDeserializedScene != null)
+                {
+                    sceneToReturn = cachedDeserializedScene;
+                }
+            }
+
+            return sceneToReturn;
+        }
+
         /// <summary>
         /// Retrieves Scene Understanding data continuously from the runtime.
         /// </summary>
@@ -465,14 +485,21 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         private IEnumerator DisplayDataRoutine(TaskCompletionSource<bool> completionSource)
         {
             Debug.Log("SceneUnderstandingManager.DisplayData: About to display the latest set of Scene Objects");
-            SceneUnderstanding.Scene suScene = null;
+            
+            //We are about to deserialize a new Scene, if we have a cached scene, dispose it.
+            if(cachedDeserializedScene != null)
+            {
+                cachedDeserializedScene.Dispose();
+                cachedDeserializedScene = null;
+            }
+
             if (QuerySceneFromDevice)
             {
                 // Get Latest Scene and Deserialize it
                 // Scenes Queried from a device are Scenes composed of one Scene Fragment
                 SceneFragment sceneFragment = GetLatestSceneSerialization();
                 SceneFragment[] sceneFragmentsArray = new SceneFragment[1] { sceneFragment };
-                suScene = SceneUnderstanding.Scene.FromFragments(sceneFragmentsArray);
+                cachedDeserializedScene = SceneUnderstanding.Scene.FromFragments(sceneFragmentsArray);
 
                 // Get Latest Scene GUID
                 Guid latestGuidSnapShot = GetLatestSUSceneId();
@@ -495,7 +522,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
                 try
                 {
-                    suScene = SceneUnderstanding.Scene.FromFragments(sceneFragments);
+                    cachedDeserializedScene = SceneUnderstanding.Scene.FromFragments(sceneFragments);
                     lock (SUDataLock)
                     {
                         // Store new GUID for data loaded
@@ -512,11 +539,11 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 }
             }
 
-            if (suScene != null)
+            if (cachedDeserializedScene != null)
             {
                 // Retrieve a transformation matrix that will allow us orient the Scene Understanding Objects into
                 // their correct corresponding position in the unity world
-                System.Numerics.Matrix4x4? sceneToUnityTransformAsMatrix4x4 = GetSceneToUnityTransformAsMatrix4x4(suScene);
+                System.Numerics.Matrix4x4? sceneToUnityTransformAsMatrix4x4 = GetSceneToUnityTransformAsMatrix4x4(cachedDeserializedScene);
 
                 if (sceneToUnityTransformAsMatrix4x4 != null)
                 {
@@ -534,13 +561,13 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                     {
                         // If the scene is not running on a device, orient the scene root relative to the floor of the scene
                         // and unity's up vector
-                        OrientSceneForPC(SceneRoot, suScene);
+                        OrientSceneForPC(SceneRoot, cachedDeserializedScene);
                     }
 
 
                     // After the scene has been oriented, loop through all the scene objects and
                     // generate their corresponding Unity Object
-                    IEnumerable<SceneUnderstanding.SceneObject> sceneObjects = suScene.SceneObjects;
+                    IEnumerable<SceneUnderstanding.SceneObject> sceneObjects = cachedDeserializedScene.SceneObjects;
 
                     int i = 0;
                     foreach (SceneUnderstanding.SceneObject sceneObject in sceneObjects)
@@ -561,9 +588,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
                 // Run CallBacks for Onload Finished
                 OnLoadFinished.Invoke();
-
-                //Dispose of the Scene when we are done
-                suScene.Dispose();
 
                 // Let the task complete
                 completionSource.SetResult(true);
@@ -657,7 +681,18 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             {
                 geometryObject.transform.parent = unityParentHolderObject.transform;
                 geometryObject.transform.localPosition = Vector3.zero;
-                geometryObject.transform.localRotation = Quaternion.identity;
+
+                if(AlignSUObjectsNormalToUnityYAxis)
+                {
+                    //If our Vertex Data is rotated to have it match its Normal to Unity's Y axis, we need to offset the rotation
+                    //in the parent object to have the object face the right direction
+                    geometryObject.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
+                }
+                else
+                {
+                    //Otherwise don't rotate
+                    geometryObject.transform.localRotation = Quaternion.identity;
+                }
             }
 
             //Return that the Scene Object was indeed represented as a unity object and wasn't skipped
@@ -931,6 +966,16 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 unityMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
             }
 
+            if(AlignSUObjectsNormalToUnityYAxis)
+            {
+                //Rotate our Vertex Data to match our Object's Normal vector to Unity's coordinate system Up Axis (Y axis)
+                Quaternion rot = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+                for (int i = 0; i < combinedMeshVertices.Count; i++)
+                {
+                    combinedMeshVertices[i] = rot * combinedMeshVertices[i];
+                }
+            }
+            
             // Apply the Indices and Vertices
             unityMesh.SetVertices(combinedMeshVertices);
             unityMesh.SetIndices(combinedMeshIndices.ToArray(), MeshTopology.Triangles, 0);
@@ -1420,8 +1465,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             }
         }
 
-
-
+        
         #endregion
 
         #region Out of PlayMode Functions
