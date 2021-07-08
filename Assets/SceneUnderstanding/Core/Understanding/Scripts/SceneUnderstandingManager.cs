@@ -684,8 +684,8 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
                 if(AlignSUObjectsNormalToUnityYAxis)
                 {
-                    //If our Vertex Data is rotated to have it match its Normal to Unity's Y axis, we need to offset the rotation
-                    //in the parent object to have the object face the right direction
+                    // If our Vertex Data is rotated to have it match its Normal to Unity's Y axis, we need to offset the rotation
+                    // in the parent object to have the object face the right direction
                     geometryObject.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
                 }
                 else
@@ -694,6 +694,13 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                     geometryObject.transform.localRotation = Quaternion.identity;
                 }
             }
+
+            // Add a SceneUnderstandingProperties Component to the Parent Holder Object
+            // this component will hold a GUID and a SceneObjectKind that correspond to this
+            // specific Object 
+            SceneUnderstandingProperties properties = unityParentHolderObject.AddComponent<SceneUnderstandingProperties>();
+            properties.suObjectGUID = suObject.Id;
+            properties.suObjectKind = suObject.Kind;
 
             //Return that the Scene Object was indeed represented as a unity object and wasn't skipped
             return true;

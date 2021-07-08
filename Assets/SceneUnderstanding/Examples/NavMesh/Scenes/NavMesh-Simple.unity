@@ -729,7 +729,7 @@ PrefabInstance:
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
       propertyPath: QuerySceneFromDevice
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
@@ -750,6 +750,11 @@ PrefabInstance:
         type: 3}
       propertyPath: RequestInferredRegions
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: AddCollidersInWorldMesh
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
@@ -803,6 +808,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
+      propertyPath: AddCollidersInWallSceneObjects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: AddCollidersCeilingSceneObjects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: AddCollidersInFloorSceneObjects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: AddCollidersInUnknownSceneObjects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: AddCollidersInPlatformSceneObjects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: AddCollidersInBackgroundSceneObjects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
       propertyPath: FilterCompletelyInferredSceneObjects
       value: 0
       objectReference: {fileID: 0}
@@ -816,6 +851,11 @@ PrefabInstance:
       propertyPath: SUSerializedScenePaths.Array.data[0]
       value: 
       objectReference: {fileID: 4900000, guid: 82ce9e90cb0010645b80557a1d4a4263, type: 3}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
+      propertyPath: AddCollidersInCompletelyInferredSceneObjects
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
       propertyPath: OnLoadStarted.m_PersistentCalls.m_Calls.Array.size

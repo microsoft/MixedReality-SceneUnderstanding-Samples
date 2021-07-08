@@ -12,6 +12,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
     {
         public GameObject SceneRoot;
         public bool DisplayTextLabels;
+
         public void LabelSUScene()
         {
             if (!DisplayTextLabels)
@@ -66,5 +67,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 tmpro.text = label;
             }
         }
+
     }
 }
