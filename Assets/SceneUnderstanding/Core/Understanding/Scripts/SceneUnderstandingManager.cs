@@ -753,7 +753,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             int layer = GetLayer(suObject.Kind);
 
             List<GameObject> listOfGeometryGameObjToReturn = new List<GameObject>();
-            if (SceneObjectRequestMode == RenderMode.Quad || SceneObjectRequestMode == RenderMode.QuadWithMask)
+            //Create the Quad SceneObjects first
             {
                 // If the Request Settings are requesting quads, create a gameobject in unity for
                 // each quad in the Scene Object
@@ -818,11 +818,17 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                             break;
                     }
 
+                    //If the render mode isn't Quad mode disable the gameobject
+                    if(SceneObjectRequestMode != RenderMode.Quad && SceneObjectRequestMode != RenderMode.QuadWithMask)
+                    {
+                        gameObjectToReturn.SetActive(false);
+                    }
+
                     // Add to list
                     listOfGeometryGameObjToReturn.Add(gameObjectToReturn);
                 }
             }
-            else // if Render.Mode == Mesh or == WireFrame
+            // Then Create the Planar Meshes Scene Objects
             {
                 // If the Request Settings are requesting Meshes or WireFrame, create a gameobject in unity for
                 // each Mesh, and apply either the default material or the wireframe material
@@ -908,6 +914,13 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                             break;
                     }
 
+                    //If the render mode isn't Mesh or WireFrame mode disable the gameobject
+                    if (SceneObjectRequestMode != RenderMode.Mesh && SceneObjectRequestMode != RenderMode.Wireframe)
+                    {
+                        gameObjectToReturn.SetActive(false);
+                    }
+
+                    // Add to list
                     listOfGeometryGameObjToReturn.Add(gameObjectToReturn);
                 }
             }
@@ -1010,9 +1023,9 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             List<Vector3> vertices = new List<Vector3>()
             {
                 new Vector3(-widthInMeters / 2, -heightInMeters / 2, 0),
-                    new Vector3( widthInMeters / 2, -heightInMeters / 2, 0),
-                    new Vector3(-widthInMeters / 2,  heightInMeters / 2, 0),
-                    new Vector3( widthInMeters / 2,  heightInMeters / 2, 0)
+                new Vector3( widthInMeters / 2, -heightInMeters / 2, 0),
+                new Vector3(-widthInMeters / 2,  heightInMeters / 2, 0),
+                new Vector3( widthInMeters / 2,  heightInMeters / 2, 0)
             };
 
             List<int> triangles = new List<int>()
@@ -1024,15 +1037,28 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             List<Vector2> uvs = new List<Vector2>()
             {
                 new Vector2(0, 0),
-                    new Vector2(1, 0),
-                    new Vector2(0, 1),
-                    new Vector2(1, 1)
+                new Vector2(1, 0),
+                new Vector2(0, 1),
+                new Vector2(1, 1)
             };
+
+            if (AlignSUObjectsNormalToUnityYAxis)
+            {
+                // Rotate our Vertex Data to match our Object's Normal vector to Unity's coordinate system Up Axis (Y axis)
+                Quaternion rot = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+                for (int i = 0; i < vertices.Count; i++)
+                {
+                    vertices[i] = rot * vertices[i];
+                    uvs[i] = rot * uvs[i];
+                }
+
+            }
 
             Mesh unityMesh = new Mesh();
             unityMesh.SetVertices(vertices);
             unityMesh.SetIndices(triangles.ToArray(), MeshTopology.Triangles, 0);
             unityMesh.SetUVs(0, uvs);
+            unityMesh.RecalculateNormals();
 
             return unityMesh;
         }
