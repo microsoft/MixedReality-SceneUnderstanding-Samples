@@ -25,5 +25,10 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("NavMesh-Simple");
         }
+
+        public void LoadDollHouse()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("DollHouse");
+        }
     }
 }
