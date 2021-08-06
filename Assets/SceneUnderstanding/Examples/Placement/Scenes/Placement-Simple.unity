@@ -802,6 +802,8 @@ MonoBehaviour:
   objToPlaceRef: {fileID: 3358168481066435975, guid: d89b730c479f1c949afd1ce9cc414077,
     type: 3}
   material: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be, type: 2}
+  UseSUSDKPlacementAPI: 0
+  manager: {fileID: 1449833007}
 --- !u!4 &1460691995
 Transform:
   m_ObjectHideFlags: 0

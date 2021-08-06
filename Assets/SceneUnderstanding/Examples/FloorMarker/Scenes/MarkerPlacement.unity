@@ -339,7 +339,7 @@ PrefabInstance:
     - target: {fileID: 8426562319953196664, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196664, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -414,7 +414,7 @@ PrefabInstance:
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: inputActions.Array.size
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -429,17 +429,17 @@ PrefabInstance:
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: inputActions.Array.data[2].key
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
-        type: 3}
-      propertyPath: inputActions.Array.data[3].key
       value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
+      propertyPath: inputActions.Array.data[3].key
+      value: 111
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
       propertyPath: inputActions.Array.data[4].key
-      value: 109
+      value: 111
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -459,17 +459,17 @@ PrefabInstance:
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: inputActions.Array.data[2].phrase
-      value: Stop Data
-      objectReference: {fileID: 0}
-    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
-        type: 3}
-      propertyPath: inputActions.Array.data[3].phrase
       value: Floor Marker
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
+      propertyPath: inputActions.Array.data[3].phrase
+      value: Toggle Ghost Mode
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
       propertyPath: inputActions.Array.data[4].phrase
-      value: Table Marker
+      value: Toggle Ghost Mode
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -489,17 +489,17 @@ PrefabInstance:
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: inputActions.Array.data[2].description
-      value: Stop Querying SU Data
-      objectReference: {fileID: 0}
-    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
-        type: 3}
-      propertyPath: inputActions.Array.data[3].description
       value: Find Location for Floor Marker
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
+      propertyPath: inputActions.Array.data[3].description
+      value: Make Scene Objects Invisible with Oclussion
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
       propertyPath: inputActions.Array.data[4].description
-      value: Find Location for Table Marker
+      value: Make Scene Objects Invisible with Oclussion
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -595,7 +595,7 @@ PrefabInstance:
         type: 3}
       propertyPath: inputActions.Array.data[2].handler.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2072500552}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: inputActions.Array.data[3].handler.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -654,17 +654,17 @@ PrefabInstance:
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: inputActions.Array.data[2].handler.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StopQueringSUData
-      objectReference: {fileID: 0}
-    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
-        type: 3}
-      propertyPath: inputActions.Array.data[3].handler.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: FindLocationForFloorMarker
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
+      propertyPath: inputActions.Array.data[3].handler.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleGhostMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
       propertyPath: inputActions.Array.data[4].handler.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: FindLocationForPlatformMarker
+      value: ToggleGhostMode
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -723,6 +723,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e92419956a00654aafabc6885e89266, type: 3}
+--- !u!1001 &937921799
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4679718150259369988, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_Name
+      value: Labeler
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.03816644
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.058065914
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.1734962
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369994, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4679718150259369995, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: SceneRoot
+      value: 
+      objectReference: {fileID: 293747530}
+    - target: {fileID: 4679718150259369995, guid: a6041f4a23cfbef489aa62258b35f481,
+        type: 3}
+      propertyPath: DisplayTextLabels
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a6041f4a23cfbef489aa62258b35f481, type: 3}
 --- !u!1001 &944501523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -873,7 +952,7 @@ PrefabInstance:
     - target: {fileID: 1654952326856315525, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315525, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
@@ -1029,7 +1108,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1475177620
 GameObject:
@@ -1128,7 +1207,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2072500550
 GameObject:
@@ -1160,7 +1239,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2072500552
 MonoBehaviour:
@@ -1179,8 +1258,6 @@ MonoBehaviour:
   manager: {fileID: 944501524}
   SUDefaultMaterial: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be, type: 2}
   floorMarkerPrefab: {fileID: 6180563606624132915, guid: 95255a8769bafc54f9168d99f41b45dd,
-    type: 3}
-  tableMarkerPrefab: {fileID: 3059627095010634249, guid: 613131091d5c00b46a8675a65383f662,
     type: 3}
 --- !u!114 &2072500554
 MonoBehaviour:
