@@ -639,6 +639,34 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             isBoudingBoxOn = false;
         }
 
+        public void SwitchToWireFrame()
+        {
+            manager.SceneObjectRequestMode = RenderMode.Wireframe;
+            manager.DisplayDataAsync();
+        }
+
+        public void SwitchToDefault()
+        {
+            manager.SceneObjectRequestMode = RenderMode.Mesh;
+            manager.DisplayDataAsync();
+        }
+
+        public void ToggleAutoRefresh()
+        {
+            manager.AutoRefresh = !manager.AutoRefresh;
+            if (!manager.AutoRefresh)
+            {
+                manager.TimeElapsedSinceLastAutoRefresh = manager.AutoRefreshIntervalInSeconds;
+            }
+        }
+
+        public void RefreshScene()
+        {
+            manager.DisplayDataAsync();
+        }
+
     }
+
+    
 
 }

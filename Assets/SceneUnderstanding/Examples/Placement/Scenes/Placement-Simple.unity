@@ -468,6 +468,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
+      propertyPath: MeshQuality
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
+        type: 3}
       propertyPath: RunOnDevice
       value: 0
       objectReference: {fileID: 0}
@@ -494,7 +499,7 @@ PrefabInstance:
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
       propertyPath: QuerySceneFromDevice
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
@@ -549,7 +554,7 @@ PrefabInstance:
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
       propertyPath: AutoRefreshIntervalInSeconds
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1654952326856315522, guid: a9b7988b52547e14899219ced698f6b2,
         type: 3}
@@ -802,7 +807,7 @@ MonoBehaviour:
   objToPlaceRef: {fileID: 3358168481066435975, guid: d89b730c479f1c949afd1ce9cc414077,
     type: 3}
   material: {fileID: 2100000, guid: 0746671642388094aa5fc149eb6c23be, type: 2}
-  UseSUSDKPlacementAPI: 0
+  UseSUSDKPlacementAPI: 1
   manager: {fileID: 1449833007}
 --- !u!4 &1460691995
 Transform:
@@ -1118,7 +1123,7 @@ PrefabInstance:
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: inputActions.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -1132,6 +1137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
+      propertyPath: inputActions.Array.data[2].key
+      value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
       propertyPath: inputActions.Array.data[0].phrase
       value: Place Object
       objectReference: {fileID: 0}
@@ -1139,6 +1149,11 @@ PrefabInstance:
         type: 3}
       propertyPath: inputActions.Array.data[1].phrase
       value: Spray Objects
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: inputActions.Array.data[2].phrase
+      value: Toggle Placement Type
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -1152,12 +1167,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
+      propertyPath: inputActions.Array.data[2].description
+      value: Changes the method to place objects
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
       propertyPath: inputActions.Array.data[0].handler.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: inputActions.Array.data[1].handler.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: inputActions.Array.data[2].handler.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
@@ -1172,12 +1197,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
+      propertyPath: inputActions.Array.data[2].handler.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
       propertyPath: inputActions.Array.data[0].handler.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1460691994}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: inputActions.Array.data[1].handler.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1460691994}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: inputActions.Array.data[2].handler.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1460691994}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
@@ -1192,6 +1227,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
+      propertyPath: inputActions.Array.data[2].handler.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
       propertyPath: inputActions.Array.data[0].handler.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Place
       objectReference: {fileID: 0}
@@ -1202,12 +1242,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
+      propertyPath: inputActions.Array.data[2].handler.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePlacementType
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: inputActions.Array.data[2].handler.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Microsoft.MixedReality.SceneUnderstanding.Samples.Unity.SceneUnderstandingObjectPlacer,
+        Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
       propertyPath: inputActions.Array.data[0].handler.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: inputActions.Array.data[1].handler.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319953196670, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: inputActions.Array.data[2].handler.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8562422553275920628, guid: 9e92419956a00654aafabc6885e89266,

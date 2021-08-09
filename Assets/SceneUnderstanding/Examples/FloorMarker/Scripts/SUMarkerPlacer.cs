@@ -298,5 +298,28 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
         #endregion
 
+        #region VoiceCommands
+
+        public void ToggleGhostMode()
+        {
+            manager.IsInGhostMode = !manager.IsInGhostMode;
+            manager.DisplayDataAsync();
+        }
+
+        public void ToggleAutoRefresh()
+        {
+            manager.AutoRefresh = !manager.AutoRefresh;
+            if (!manager.AutoRefresh)
+            {
+                manager.TimeElapsedSinceLastAutoRefresh = manager.AutoRefreshIntervalInSeconds;
+            }
+        }
+        public void RefreshScene()
+        {
+            manager.DisplayDataAsync();
+        }
+
+        #endregion
+
     }
 }

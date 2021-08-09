@@ -283,5 +283,10 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         {
             StartCoroutine(SprayCoroutine());
         }
+
+        public void TogglePlacementType()
+        {
+            UseSUSDKPlacementAPI = !UseSUSDKPlacementAPI;
+        }
     }
 }

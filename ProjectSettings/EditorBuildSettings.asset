@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SceneUnderstanding/Examples/DollHouse/Scenes/DollHouse.unity
     guid: 7515f230f135f0147b12fe99788c04dc
+  - enabled: 1
+    path: Assets/SceneUnderstanding/Examples/FloorMarker/Scenes/MarkerPlacement.unity
+    guid: c65f98e30089167459fc130eeabfca3c
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 18a2f6611f96b4a4cb06ff402893bb9e,
       type: 2}
