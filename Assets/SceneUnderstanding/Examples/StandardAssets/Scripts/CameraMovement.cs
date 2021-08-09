@@ -101,6 +101,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         /// </summary>
         private void UpdateDesiredPosition()
         {
+
             float shiftMultiplier = 1.0f;
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
@@ -110,7 +111,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             Vector3 forward = Vector3.zero;
             Vector3 up = Vector3.zero;
             Vector3 right = Vector3.zero;
-
+            
             if (Input.GetKey(KeyCode.W))
             {
                 forward = transform.localRotation * Vector3.forward;
