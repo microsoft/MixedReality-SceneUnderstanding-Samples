@@ -108,38 +108,89 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         [Tooltip("Layer for the World mesh")]
         public int LayerForWorldObjects;
 
+        [Header("Scene Object Mesh Materials")]
+        [Tooltip("Material for Scene Understanding Background in Mesh Mode")]
+        public Material SceneObjectBackgroundMeshMaterial = null;
+        [Tooltip("Material for Scene Understanding Wall in Mesh Mode")]
+        public Material SceneObjectWallMeshMaterial = null;
+        [Tooltip("Material for Scene Understanding Floor in Mesh Mode")]
+        public Material SceneObjectFloorMeshMaterial = null;
+        [Tooltip("Material for Scene Understanding Ceiling in Mesh Mode")]
+        public Material SceneObjectCeilingMeshMaterial = null;
+        [Tooltip("Material for Scene Understanding Platform in Mesh Mode")]
+        public Material SceneObjectPlatformMeshMaterial = null;
+        [Tooltip("Material for Scene Understanding Unknown in Mesh Mode")]
+        public Material SceneObjectUnknownMeshMaterial = null;
+        [Tooltip("Material for Scene Understanding Inferred in Mesh Mode")]
+        public Material SceneObjectInferredMeshMaterial = null;
 
-        [Header("Materials")]
-        [Tooltip("Material for scene object meshes.")]
-        public Material SceneObjectMeshMaterial = null;
-        [Tooltip("Material for scene object quads.")]
-        public Material SceneObjectQuadMaterial = null;
+        [Header("Scene Object Quad Materials")]
+        [Tooltip("Material for Scene Understanding Background in Quad Mode")]
+        public Material SceneObjectBackgroundQuadMaterial = null;
+        [Tooltip("Material for Scene Understanding Wall in Mesh Mode")]
+        public Material SceneObjectWallQuadMaterial = null;
+        [Tooltip("Material for Scene Understanding Floor in Mesh Mode")]
+        public Material SceneObjectFloorQuadMaterial = null;
+        [Tooltip("Material for Scene Understanding Ceiling in Mesh Mode")]
+        public Material SceneObjectCeilingQuadMaterial = null;
+        [Tooltip("Material for Scene Understanding Platform in Mesh Mode")]
+        public Material SceneObjectPlatformQuadMaterial = null;
+        [Tooltip("Material for Scene Understanding Unknown in Mesh Mode")]
+        public Material SceneObjectUnknownQuadMaterial = null;
+        [Tooltip("Material for Scene Understanding Inferred in Mesh Mode")]
+        public Material SceneObjectInferredQuadMaterial = null;
+
+        [Header("Scene Object WireFrame and Occlussion Materials")]
         [Tooltip("Material for scene object mesh wireframes.")]
         public Material SceneObjectWireframeMaterial = null;
         [Tooltip("Material for scene objects when in Ghost mode (invisible object with occlusion)")]
         public Material TransparentOcclussion = null;
 
-        [Header("Render Filters")]
+        [Header("Filters")]
         [Tooltip("Toggles display of all scene objects, except for the world mesh.")]
-        public bool RenderSceneObjects = true;
+        public bool FilterAllSceneObjects = false;
         [Tooltip("Toggles display of large, horizontal scene objects, aka 'Platform'.")]
-        public bool RenderPlatformSceneObjects = true;
+        public bool FilterPlatformSceneObjects = false;
         [Tooltip("Toggles the display of background scene objects.")]
-        public bool RenderBackgroundSceneObjects = true;
+        public bool FilterBackgroundSceneObjects = false;
         [Tooltip("Toggles the display of unknown scene objects.")]
-        public bool RenderUnknownSceneObjects = true;
+        public bool FilterUnknownSceneObjects = false;
         [Tooltip("Toggles the display of the world mesh.")]
-        public bool RenderWorldMesh = false;
+        public bool FilterWorldMesh = true;
         [Tooltip("Toggles the display of completely inferred scene objects.")]
-        public bool RenderCompletelyInferredSceneObjects = true;
+        public bool FilterCompletelyInferredSceneObjects = false;
+        [Tooltip("Toggles the display of wall scene objects.")]
+        public bool FilterWallSceneObjects = false;
+        [Tooltip("Toggles the display of wall scene objects.")]
+        public bool FilterFloorSceneObjects = false;
+        [Tooltip("Toggles the display of wall scene objects.")]
+        public bool FilterCeilingSceneObjects = false;
 
         [Header("Physics")]
-        [Tooltip("Toggles the creation of objects with collider components")]
-        public bool AddColliders = false;
+        [Tooltip("Toggles the creation of platform objects with collider components")]
+        public bool AddCollidersInPlatformSceneObjects = false;
+        [Tooltip("Toggles the creation of background objects with collider components")]
+        public bool AddCollidersInBackgroundSceneObjects = false;
+        [Tooltip("Toggles the creation of unknown objects with collider components")]
+        public bool AddCollidersInUnknownSceneObjects = false;
+        [Tooltip("Toggles the creation of the world mesh with collider components")]
+        public bool AddCollidersInWorldMesh = false;
+        [Tooltip("Toggles the creation of completely inferred objects with collider components")]
+        public bool AddCollidersInCompletelyInferredSceneObjects = false;
+        [Tooltip("Toggles the creation of wall objects with collider components")]
+        public bool AddCollidersInWallSceneObjects = false;
+        [Tooltip("Toggles the creation of floor objects with collider components")]
+        public bool AddCollidersInFloorSceneObjects = false;
+        [Tooltip("Toggles the creation of ceiling objects with collider components")]
+        public bool AddCollidersCeilingSceneObjects = false;
 
         [Header("Occlussion")]
         [Tooltip("Toggle Ghost Mode, (invisible objects that still occlude)")]
         public bool IsInGhostMode = false;
+
+        [Header("Alignment")]
+        [Tooltip("Align SU Objects Normal to Unity's Y axis")]
+        public bool AlignSUObjectsNormalToUnityYAxis = true;
 
         [Header("Events")]
         [Tooltip("User function that get called when a Scene Understanding event happens")]
@@ -164,7 +215,8 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         private bool DisplayFromDiskStarted = false;
         private bool RunOnDevice;
         private readonly int NumberOfSceneObjectsToLoadPerFrame = 5;
-
+        private SceneUnderstanding.Scene cachedDeserializedScene = null;
+        private readonly object cachedDeserializedSceneLock = new object();
         #endregion
 
         #region Unity Start and Update
@@ -298,6 +350,21 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             return suSceneIdToReturn;
         }
 
+        public Scene GetLatestDeserializedScene()
+        {
+            Scene sceneToReturn = null;
+
+            lock(cachedDeserializedSceneLock)
+            {
+                if(cachedDeserializedScene != null)
+                {
+                    sceneToReturn = cachedDeserializedScene;
+                }
+            }
+
+            return sceneToReturn;
+        }
+
         /// <summary>
         /// Retrieves Scene Understanding data continuously from the runtime.
         /// </summary>
@@ -323,7 +390,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         /// <param name="lod">If world mesh is enabled, lod controls the resolution of the mesh returned.</param>
         private void RetrieveData(float boundingSphereRadiusInMeters, bool enableQuads, bool enableMeshes, bool enableInference, bool enableWorldMesh, SceneUnderstanding.SceneMeshLevelOfDetail lod)
         {
-            Debug.Log("SceneUnderstandingManager.RetrieveData: Started.");
+            //Debug.Log("SceneUnderstandingManager.RetrieveData: Started.");
 
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
             stopwatch.Start();
@@ -356,6 +423,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             }
 
             stopwatch.Stop();
+            /*
             Debug.Log(string.Format("SceneUnderstandingManager.RetrieveData: Completed. Radius: {0}; Quads: {1}; Meshes: {2}; Inference: {3}; WorldMesh: {4}; LOD: {5}; Bytes: {6}; Time (secs): {7};",
                                     boundingSphereRadiusInMeters,
                                     enableQuads,
@@ -365,6 +433,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                                     lod,
                                     (LatestSUSceneData == null ? 0 : LatestSUSceneData.Length),
                                     stopwatch.Elapsed.TotalSeconds));
+            */
         }
 
         #endregion
@@ -416,14 +485,21 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         private IEnumerator DisplayDataRoutine(TaskCompletionSource<bool> completionSource)
         {
             Debug.Log("SceneUnderstandingManager.DisplayData: About to display the latest set of Scene Objects");
-            SceneUnderstanding.Scene suScene = null;
+            
+            //We are about to deserialize a new Scene, if we have a cached scene, dispose it.
+            if(cachedDeserializedScene != null)
+            {
+                cachedDeserializedScene.Dispose();
+                cachedDeserializedScene = null;
+            }
+
             if (QuerySceneFromDevice)
             {
                 // Get Latest Scene and Deserialize it
                 // Scenes Queried from a device are Scenes composed of one Scene Fragment
                 SceneFragment sceneFragment = GetLatestSceneSerialization();
                 SceneFragment[] sceneFragmentsArray = new SceneFragment[1] { sceneFragment };
-                suScene = SceneUnderstanding.Scene.FromFragments(sceneFragmentsArray);
+                cachedDeserializedScene = SceneUnderstanding.Scene.FromFragments(sceneFragmentsArray);
 
                 // Get Latest Scene GUID
                 Guid latestGuidSnapShot = GetLatestSUSceneId();
@@ -446,7 +522,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
                 try
                 {
-                    suScene = SceneUnderstanding.Scene.FromFragments(sceneFragments);
+                    cachedDeserializedScene = SceneUnderstanding.Scene.FromFragments(sceneFragments);
                     lock (SUDataLock)
                     {
                         // Store new GUID for data loaded
@@ -463,11 +539,11 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 }
             }
 
-            if (suScene != null)
+            if (cachedDeserializedScene != null)
             {
                 // Retrieve a transformation matrix that will allow us orient the Scene Understanding Objects into
                 // their correct corresponding position in the unity world
-                System.Numerics.Matrix4x4? sceneToUnityTransformAsMatrix4x4 = GetSceneToUnityTransformAsMatrix4x4(suScene);
+                System.Numerics.Matrix4x4? sceneToUnityTransformAsMatrix4x4 = GetSceneToUnityTransformAsMatrix4x4(cachedDeserializedScene);
 
                 if (sceneToUnityTransformAsMatrix4x4 != null)
                 {
@@ -485,13 +561,13 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                     {
                         // If the scene is not running on a device, orient the scene root relative to the floor of the scene
                         // and unity's up vector
-                        OrientSceneForPC(SceneRoot, suScene);
+                        OrientSceneForPC(SceneRoot, cachedDeserializedScene);
                     }
 
 
                     // After the scene has been oriented, loop through all the scene objects and
                     // generate their corresponding Unity Object
-                    IEnumerable<SceneUnderstanding.SceneObject> sceneObjects = suScene.SceneObjects;
+                    IEnumerable<SceneUnderstanding.SceneObject> sceneObjects = cachedDeserializedScene.SceneObjects;
 
                     int i = 0;
                     foreach (SceneUnderstanding.SceneObject sceneObject in sceneObjects)
@@ -532,7 +608,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
             // If requested, scene objects can be excluded from the generation, the World Mesh is considered
             // a separate object hence is not affected by this filter
-            if (RenderSceneObjects == false && suObject.Kind != SceneUnderstanding.SceneObjectKind.World)
+            if (FilterAllSceneObjects == true && suObject.Kind != SceneUnderstanding.SceneObjectKind.World)
             {
                 return false;
             }
@@ -542,23 +618,35 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             switch (kind)
             {
                 case SceneUnderstanding.SceneObjectKind.World:
-                    if (!RenderWorldMesh)
+                    if (FilterWorldMesh)
                         return false;
                     break;
                 case SceneUnderstanding.SceneObjectKind.Platform:
-                    if (!RenderPlatformSceneObjects)
+                    if (FilterPlatformSceneObjects)
                         return false;
                     break;
                 case SceneUnderstanding.SceneObjectKind.Background:
-                    if (!RenderBackgroundSceneObjects)
+                    if (FilterBackgroundSceneObjects)
                         return false;
                     break;
                 case SceneUnderstanding.SceneObjectKind.Unknown:
-                    if (!RenderUnknownSceneObjects)
+                    if (FilterUnknownSceneObjects)
                         return false;
                     break;
                 case SceneUnderstanding.SceneObjectKind.CompletelyInferred:
-                    if (!RenderCompletelyInferredSceneObjects)
+                    if (FilterCompletelyInferredSceneObjects)
+                        return false;
+                    break;
+                case SceneUnderstanding.SceneObjectKind.Wall:
+                    if (FilterWallSceneObjects)
+                        return false;
+                    break;
+                case SceneUnderstanding.SceneObjectKind.Floor:
+                    if (FilterFloorSceneObjects)
+                        return false;
+                    break;
+                case SceneUnderstanding.SceneObjectKind.Ceiling:
+                    if (FilterCeilingSceneObjects)
                         return false;
                     break;
             }
@@ -593,15 +681,26 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             {
                 geometryObject.transform.parent = unityParentHolderObject.transform;
                 geometryObject.transform.localPosition = Vector3.zero;
-                geometryObject.transform.localRotation = Quaternion.identity;
+
+                if(AlignSUObjectsNormalToUnityYAxis)
+                {
+                    // If our Vertex Data is rotated to have it match its Normal to Unity's Y axis, we need to offset the rotation
+                    // in the parent object to have the object face the right direction
+                    geometryObject.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
+                }
+                else
+                {
+                    //Otherwise don't rotate
+                    geometryObject.transform.localRotation = Quaternion.identity;
+                }
             }
 
-            if (RunOnDevice)
-            {
-                // If the Scene is running on a device, add a World Anchor to align the Unity object
-                // to the XR scene
-                unityParentHolderObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
-            }
+            // Add a SceneUnderstandingProperties Component to the Parent Holder Object
+            // this component will hold a GUID and a SceneObjectKind that correspond to this
+            // specific Object 
+            SceneUnderstandingProperties properties = unityParentHolderObject.AddComponent<SceneUnderstandingProperties>();
+            properties.suObjectGUID = suObject.Id;
+            properties.suObjectKind = suObject.Kind;
 
             //Return that the Scene Object was indeed represented as a unity object and wasn't skipped
             return true;
@@ -627,7 +726,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             Material tempMaterial = GetMaterial(SceneObjectKind.World, RenderMode.Wireframe);
             AddMeshToUnityObject(gameObjToReturn, unityMesh, ColorForWorldObjects, tempMaterial);
 
-            if (AddColliders)
+            if (AddCollidersInWorldMesh)
             {
                 // Generate a unity mesh for physics
                 Mesh unityColliderMesh = GenerateUnityMeshFromSceneObjectMeshes(suObject.ColliderMeshes);
@@ -654,7 +753,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             int layer = GetLayer(suObject.Kind);
 
             List<GameObject> listOfGeometryGameObjToReturn = new List<GameObject>();
-            if (SceneObjectRequestMode == RenderMode.Quad || SceneObjectRequestMode == RenderMode.QuadWithMask)
+            //Create the Quad SceneObjects first
             {
                 // If the Request Settings are requesting quads, create a gameobject in unity for
                 // each quad in the Scene Object
@@ -664,7 +763,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
                     Material tempMaterial = GetMaterial(suObject.Kind, SceneObjectRequestMode);
 
-                    GameObject gameObjectToReturn = new GameObject(suObject.Kind.ToString());
+                    GameObject gameObjectToReturn = new GameObject(suObject.Kind.ToString() + "Quad");
                     gameObjectToReturn.layer = layer;
                     AddMeshToUnityObject(gameObjectToReturn, unityMesh, color, tempMaterial);
 
@@ -673,16 +772,63 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                         ApplyQuadRegionMask(quad, gameObjectToReturn, color.Value);
                     }
 
-                    if (AddColliders)
+                    switch(suObject.Kind)
                     {
-                        gameObjectToReturn.AddComponent<BoxCollider>();
+                        case SceneObjectKind.Background:
+                            if(AddCollidersInBackgroundSceneObjects)
+                            {
+                                gameObjectToReturn.AddComponent<BoxCollider>();
+                            }
+                            break;
+                        case SceneObjectKind.Ceiling:
+                            if (AddCollidersCeilingSceneObjects)
+                            {
+                                gameObjectToReturn.AddComponent<BoxCollider>();
+                            }
+                            break;
+                        case SceneObjectKind.CompletelyInferred:
+                            if (AddCollidersInCompletelyInferredSceneObjects)
+                            {
+                                gameObjectToReturn.AddComponent<BoxCollider>();
+                            }
+                            break;
+                        case SceneObjectKind.Floor:
+                            if (AddCollidersInFloorSceneObjects)
+                            {
+                                gameObjectToReturn.AddComponent<BoxCollider>();
+                            }
+                            break;
+                        case SceneObjectKind.Platform:
+                            if (AddCollidersInPlatformSceneObjects)
+                            {
+                                gameObjectToReturn.AddComponent<BoxCollider>();
+                            }
+                            break;
+                        case SceneObjectKind.Unknown:
+                            if (AddCollidersInUnknownSceneObjects)
+                            {
+                                gameObjectToReturn.AddComponent<BoxCollider>();
+                            }
+                            break;
+                        case SceneObjectKind.Wall:
+                            if (AddCollidersInWallSceneObjects)
+                            {
+                                gameObjectToReturn.AddComponent<BoxCollider>();
+                            }
+                            break;
+                    }
+
+                    //If the render mode isn't Quad mode disable the gameobject
+                    if(SceneObjectRequestMode != RenderMode.Quad && SceneObjectRequestMode != RenderMode.QuadWithMask)
+                    {
+                        gameObjectToReturn.SetActive(false);
                     }
 
                     // Add to list
                     listOfGeometryGameObjToReturn.Add(gameObjectToReturn);
                 }
             }
-            else // if Render.Mode == Mesh or == WireFrame
+            // Then Create the Planar Meshes Scene Objects
             {
                 // If the Request Settings are requesting Meshes or WireFrame, create a gameobject in unity for
                 // each Mesh, and apply either the default material or the wireframe material
@@ -701,15 +847,80 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                     // Add the created Mesh into the Unity Object
                     AddMeshToUnityObject(gameObjectToReturn, unityMesh, color, tempMaterial);
 
-                    if (AddColliders)
+                    switch (suObject.Kind)
                     {
-                        // Generate a unity mesh for physics
-                        Mesh unityColliderMesh = GenerateUnityMeshFromSceneObjectMeshes(new List<SceneUnderstanding.SceneMesh> { suColliderMesh });
-
-                        MeshCollider col = gameObjectToReturn.AddComponent<MeshCollider>();
-                        col.sharedMesh = unityColliderMesh;
+                        case SceneObjectKind.Background:
+                            if (AddCollidersInBackgroundSceneObjects)
+                            {
+                                // Generate a unity mesh for physics
+                                Mesh unityColliderMesh = GenerateUnityMeshFromSceneObjectMeshes(new List<SceneUnderstanding.SceneMesh> { suColliderMesh });
+                                MeshCollider col = gameObjectToReturn.AddComponent<MeshCollider>();
+                                col.sharedMesh = unityColliderMesh;
+                            }
+                            break;
+                        case SceneObjectKind.Ceiling:
+                            if (AddCollidersCeilingSceneObjects)
+                            {
+                                // Generate a unity mesh for physics
+                                Mesh unityColliderMesh = GenerateUnityMeshFromSceneObjectMeshes(new List<SceneUnderstanding.SceneMesh> { suColliderMesh });
+                                MeshCollider col = gameObjectToReturn.AddComponent<MeshCollider>();
+                                col.sharedMesh = unityColliderMesh;
+                            }
+                            break;
+                        case SceneObjectKind.CompletelyInferred:
+                            if (AddCollidersInCompletelyInferredSceneObjects)
+                            {
+                                // Generate a unity mesh for physics
+                                Mesh unityColliderMesh = GenerateUnityMeshFromSceneObjectMeshes(new List<SceneUnderstanding.SceneMesh> { suColliderMesh });
+                                MeshCollider col = gameObjectToReturn.AddComponent<MeshCollider>();
+                                col.sharedMesh = unityColliderMesh;
+                            }
+                            break;
+                        case SceneObjectKind.Floor:
+                            if (AddCollidersInFloorSceneObjects)
+                            {
+                                // Generate a unity mesh for physics
+                                Mesh unityColliderMesh = GenerateUnityMeshFromSceneObjectMeshes(new List<SceneUnderstanding.SceneMesh> { suColliderMesh });
+                                MeshCollider col = gameObjectToReturn.AddComponent<MeshCollider>();
+                                col.sharedMesh = unityColliderMesh;
+                            }
+                            break;
+                        case SceneObjectKind.Platform:
+                            if (AddCollidersInPlatformSceneObjects)
+                            {
+                                // Generate a unity mesh for physics
+                                Mesh unityColliderMesh = GenerateUnityMeshFromSceneObjectMeshes(new List<SceneUnderstanding.SceneMesh> { suColliderMesh });
+                                MeshCollider col = gameObjectToReturn.AddComponent<MeshCollider>();
+                                col.sharedMesh = unityColliderMesh;
+                            }
+                            break;
+                        case SceneObjectKind.Unknown:
+                            if (AddCollidersInUnknownSceneObjects)
+                            {
+                                // Generate a unity mesh for physics
+                                Mesh unityColliderMesh = GenerateUnityMeshFromSceneObjectMeshes(new List<SceneUnderstanding.SceneMesh> { suColliderMesh });
+                                MeshCollider col = gameObjectToReturn.AddComponent<MeshCollider>();
+                                col.sharedMesh = unityColliderMesh;
+                            }
+                            break;
+                        case SceneObjectKind.Wall:
+                            if (AddCollidersInWallSceneObjects)
+                            {
+                                // Generate a unity mesh for physics
+                                Mesh unityColliderMesh = GenerateUnityMeshFromSceneObjectMeshes(new List<SceneUnderstanding.SceneMesh> { suColliderMesh });
+                                MeshCollider col = gameObjectToReturn.AddComponent<MeshCollider>();
+                                col.sharedMesh = unityColliderMesh;
+                            }
+                            break;
                     }
 
+                    //If the render mode isn't Mesh or WireFrame mode disable the gameobject
+                    if (SceneObjectRequestMode != RenderMode.Mesh && SceneObjectRequestMode != RenderMode.Wireframe)
+                    {
+                        gameObjectToReturn.SetActive(false);
+                    }
+
+                    // Add to list
                     listOfGeometryGameObjToReturn.Add(gameObjectToReturn);
                 }
             }
@@ -775,6 +986,16 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 unityMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
             }
 
+            if(AlignSUObjectsNormalToUnityYAxis)
+            {
+                //Rotate our Vertex Data to match our Object's Normal vector to Unity's coordinate system Up Axis (Y axis)
+                Quaternion rot = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+                for (int i = 0; i < combinedMeshVertices.Count; i++)
+                {
+                    combinedMeshVertices[i] = rot * combinedMeshVertices[i];
+                }
+            }
+            
             // Apply the Indices and Vertices
             unityMesh.SetVertices(combinedMeshVertices);
             unityMesh.SetIndices(combinedMeshIndices.ToArray(), MeshTopology.Triangles, 0);
@@ -802,9 +1023,9 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             List<Vector3> vertices = new List<Vector3>()
             {
                 new Vector3(-widthInMeters / 2, -heightInMeters / 2, 0),
-                    new Vector3( widthInMeters / 2, -heightInMeters / 2, 0),
-                    new Vector3(-widthInMeters / 2,  heightInMeters / 2, 0),
-                    new Vector3( widthInMeters / 2,  heightInMeters / 2, 0)
+                new Vector3( widthInMeters / 2, -heightInMeters / 2, 0),
+                new Vector3(-widthInMeters / 2,  heightInMeters / 2, 0),
+                new Vector3( widthInMeters / 2,  heightInMeters / 2, 0)
             };
 
             List<int> triangles = new List<int>()
@@ -816,15 +1037,28 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             List<Vector2> uvs = new List<Vector2>()
             {
                 new Vector2(0, 0),
-                    new Vector2(1, 0),
-                    new Vector2(0, 1),
-                    new Vector2(1, 1)
+                new Vector2(1, 0),
+                new Vector2(0, 1),
+                new Vector2(1, 1)
             };
+
+            if (AlignSUObjectsNormalToUnityYAxis)
+            {
+                // Rotate our Vertex Data to match our Object's Normal vector to Unity's coordinate system Up Axis (Y axis)
+                Quaternion rot = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+                for (int i = 0; i < vertices.Count; i++)
+                {
+                    vertices[i] = rot * vertices[i];
+                    uvs[i] = rot * uvs[i];
+                }
+
+            }
 
             Mesh unityMesh = new Mesh();
             unityMesh.SetVertices(vertices);
             unityMesh.SetIndices(triangles.ToArray(), MeshTopology.Triangles, 0);
             unityMesh.SetUVs(0, uvs);
+            unityMesh.RecalculateNormals();
 
             return unityMesh;
         }
@@ -925,13 +1159,13 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 {
                     case RenderMode.Quad:
                     case RenderMode.QuadWithMask:
-                        sourceMat = SceneObjectQuadMaterial;
+                        sourceMat = GetSceneObjectSourceMaterial(RenderMode.Quad, kind);
                         break;
                     case RenderMode.Wireframe:
                         sourceMat = SceneObjectWireframeMaterial;
                         break;
                     default:
-                        sourceMat = SceneObjectMeshMaterial;
+                        sourceMat = GetSceneObjectSourceMaterial(RenderMode.Mesh, kind);
                         break;
                 }
 
@@ -952,6 +1186,66 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
             // Return the found or created material
             return mat;
+        }
+
+        /// <summary>
+        /// Returns the correct Material for Rendering an SU Object as 
+        /// a GameObject corresponding to its SU type and the Rendering Mode
+        /// of the app
+        /// </summary>
+        /// <param name="mode">The Render Mode of the app, Mesh mode or Quad mode </param>
+        /// <param name="kind">The Type of SU Object (Wall, Floor etc)</param>
+        /// <returns></returns>
+        Material GetSceneObjectSourceMaterial(RenderMode mode, SceneObjectKind kind)
+        {
+            if(mode == RenderMode.Quad)
+            {
+                switch(kind)
+                {
+                    case SceneUnderstanding.SceneObjectKind.World:
+                        return SceneObjectWireframeMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Platform:
+                        return SceneObjectPlatformQuadMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Background:
+                        return SceneObjectBackgroundQuadMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Unknown:
+                        return SceneObjectUnknownQuadMaterial;  
+                    case SceneUnderstanding.SceneObjectKind.CompletelyInferred:
+                        return SceneObjectInferredQuadMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Ceiling:
+                        return SceneObjectCeilingQuadMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Floor:
+                        return SceneObjectFloorQuadMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Wall:
+                        return SceneObjectWallQuadMaterial;
+                    default:
+                        return SceneObjectWireframeMaterial;
+                }
+            }
+            else // RenderMode == Mesh
+            {
+                switch (kind)
+                {
+                    case SceneUnderstanding.SceneObjectKind.World:
+                        return SceneObjectWireframeMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Platform:
+                        return SceneObjectPlatformMeshMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Background:
+                        return SceneObjectBackgroundMeshMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Unknown:
+                        return SceneObjectUnknownMeshMaterial;
+                    case SceneUnderstanding.SceneObjectKind.CompletelyInferred:
+                        return SceneObjectInferredMeshMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Ceiling:
+                        return SceneObjectCeilingMeshMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Floor:
+                        return SceneObjectFloorMeshMaterial;
+                    case SceneUnderstanding.SceneObjectKind.Wall:
+                        return SceneObjectWallMeshMaterial;
+                    default:
+                        return SceneObjectWireframeMaterial;
+                }
+            }
         }
 
 
@@ -1063,8 +1357,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             if (RunOnDevice)
             {
                 Windows.Perception.Spatial.SpatialCoordinateSystem sceneCoordinateSystem = Microsoft.Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview.CreateCoordinateSystemForNode(scene.OriginSpatialGraphNodeId);
-                HolograhicFrameData holoFrameData = Marshal.PtrToStructure<HolograhicFrameData>(UnityEngine.XR.XRDevice.GetNativePtr());
-                Windows.Perception.Spatial.SpatialCoordinateSystem unityCoordinateSystem = Microsoft.Windows.Perception.Spatial.SpatialCoordinateSystem.FromNativePtr(holoFrameData.ISpatialCoordinateSystemPtr);
+                Windows.Perception.Spatial.SpatialCoordinateSystem unityCoordinateSystem = Microsoft.Windows.Perception.Spatial.SpatialCoordinateSystem.FromNativePtr(UnityEngine.XR.WindowsMR.WindowsMREnvironment.OriginSpatialCoordinateSystem);
 
                 sceneToUnityTransform = sceneCoordinateSystem.TryGetTransformTo(unityCoordinateSystem);
 
@@ -1205,8 +1498,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             }
         }
 
-
-
+        
         #endregion
 
         #region Out of PlayMode Functions

@@ -156,7 +156,7 @@
 
             inputActions.Add(InputAction.Create("Toggle Scene Objects", KeyCode.Alpha1, "Show / hide processed scene objects", async () =>
             {
-                SuManager.RenderSceneObjects = !SuManager.RenderSceneObjects;
+                SuManager.FilterAllSceneObjects = !SuManager.FilterAllSceneObjects;
                 await SuManager.DisplayDataAsync();
             }));
 
@@ -192,19 +192,19 @@
 
             inputActions.Add(InputAction.Create("Toggle Platforms", KeyCode.Alpha5, "Enable / Disable large horizontal surfaces", async () =>
             {
-                SuManager.RenderPlatformSceneObjects = !SuManager.RenderPlatformSceneObjects;
+                SuManager.FilterPlatformSceneObjects = !SuManager.FilterPlatformSceneObjects;
                 await SuManager.DisplayDataAsync();
             }));
 
             inputActions.Add(InputAction.Create("Toggle Background", KeyCode.Alpha6, "Enable / Disable background objects", async () =>
             {
-                SuManager.RenderBackgroundSceneObjects = !SuManager.RenderBackgroundSceneObjects;
+                SuManager.FilterBackgroundSceneObjects = !SuManager.FilterBackgroundSceneObjects;
                 await SuManager.DisplayDataAsync();
             }));
 
             inputActions.Add(InputAction.Create("Toggle Unknown", KeyCode.Alpha7, "Enable / Disable unknown objects", async () =>
             {
-                SuManager.RenderUnknownSceneObjects = !SuManager.RenderUnknownSceneObjects;
+                SuManager.FilterUnknownSceneObjects = !SuManager.FilterUnknownSceneObjects;
                 await SuManager.DisplayDataAsync();
             }));
 
@@ -215,7 +215,7 @@
 
             inputActions.Add(InputAction.Create("Toggle World", KeyCode.Alpha9, "Show or hide the world mesh", async () =>
             {
-                SuManager.RenderWorldMesh = !SuManager.RenderWorldMesh;
+                SuManager.FilterWorldMesh = !SuManager.FilterWorldMesh;
                 await SuManager.DisplayDataAsync();
             }));
 
@@ -355,14 +355,6 @@
             }
         }
 
-        private async void TapCallBack(TappedEventArgs args)
-        {
-            Debug.Log("SUInputManager.TapCallBack: Tap recognized.");
-            if (suManager != null)
-            {
-                await suManager.DisplayDataAsync();
-            }
-        }
         #endregion // Overrides / Event Handlers
 
         #region Unity Overrides

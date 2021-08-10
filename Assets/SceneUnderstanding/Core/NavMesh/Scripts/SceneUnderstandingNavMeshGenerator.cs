@@ -53,12 +53,24 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 foreach(Transform sceneObj in sceneObjContainer.transform)
                 {
                     NavMeshModifier nvm = sceneObj.gameObject.AddComponent<NavMeshModifier>();
-
-                    // Walkable = 0, Not Walkable = 1
-                    // This area types are unity predefined, in the unity inspector in the navigation tab go to areas
-                    // to see them
                     nvm.overrideArea = true;
-                    nvm.area         = sceneObj.parent.name == "Floor" ?  (int) AreaType.Walkable : (int) AreaType.NotWalkable;
+
+                    SceneUnderstandingProperties properties = sceneObj.GetComponent<SceneUnderstandingProperties>();
+                    if(properties != null)
+                    {
+                        // Walkable = 0, Not Walkable = 1
+                        // This area types are unity predefined, in the unity inspector in the navigation tab go to areas
+                        // to see them
+                        nvm.area = properties.suObjectKind == SceneObjectKind.Floor ? (int)AreaType.Walkable : (int)AreaType.NotWalkable;
+                    }
+                    else
+                    {
+                        // Walkable = 0, Not Walkable = 1
+                        // This area types are unity predefined, in the unity inspector in the navigation tab go to areas
+                        // to see them
+                        nvm.area = sceneObj.parent.name == "Floor" ? (int)AreaType.Walkable : (int)AreaType.NotWalkable;
+                    }
+                    
                 }
             }
         }

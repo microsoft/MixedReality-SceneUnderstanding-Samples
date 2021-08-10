@@ -11,7 +11,7 @@
         ColorMask 0
         
         Pass {
-            
+            Cull Off
         }  
     }
 }

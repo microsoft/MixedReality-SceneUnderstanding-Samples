@@ -15,7 +15,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("Understanding-Simple");
         }
-
         public void LoadPlacement()
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("Placement-Simple");
@@ -24,6 +23,16 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         public void LoadNavMesh()
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("NavMesh-Simple");
+        }
+
+        public void LoadDollHouse()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("DollHouse");
+        }
+
+        public void LoadMarkerPlacer()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MarkerPlacement");
         }
     }
 }

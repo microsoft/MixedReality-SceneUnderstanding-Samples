@@ -15,9 +15,9 @@ TagManager:
   - 
   - 
   - IgnoreNavMesh
-  - 
-  - 
-  - 
+  - SUFloors
+  - SUWalls
+  - SUCeilings
   - 
   - 
   - 

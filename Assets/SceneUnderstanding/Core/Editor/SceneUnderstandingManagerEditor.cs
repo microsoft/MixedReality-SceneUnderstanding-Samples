@@ -16,6 +16,9 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         // Section hiding
         bool showColors = false;
         bool showLayers = false;
+        bool showMaterials = false;
+        bool showFilters = false;
+        bool showPhysics = false;
 
         // Reference to the target script
         SceneUnderstandingManager SUManager;
@@ -28,17 +31,32 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         SerializedProperty serializedAutoRefreshData;
         SerializedProperty serializedAutoRefreshIntervalInSeconds;
         SerializedProperty serializedRequestMode;
-        SerializedProperty serializedMeshMaterial;
-        SerializedProperty serializedQuadMaterial;
+        SerializedProperty serializedBackgroundMeshMaterial;
+        SerializedProperty serializedWallMeshMaterial;
+        SerializedProperty serializedFloorMeshMaterial;
+        SerializedProperty serializedCeilingMeshMaterial;
+        SerializedProperty serializedPlatformMeshMaterial;
+        SerializedProperty serializedUnknownMeshMaterial;
+        SerializedProperty serializedInferredMeshMaterial;
+        SerializedProperty serializedBackgroundQuadMaterial;
+        SerializedProperty serializedWallQuadMaterial;
+        SerializedProperty serializedFloorQuadMaterial;
+        SerializedProperty serializedCeilingQuadMaterial;
+        SerializedProperty serializedPlatformQuadMaterial;
+        SerializedProperty serializedUnknownQuadMaterial;
+        SerializedProperty serializedInferredQuadMaterial;
         SerializedProperty serializedWireFrameMaterial;
         SerializedProperty serializedInvisibleMaterial;
-        SerializedProperty serializedRenderSceneObjects;
-        SerializedProperty serializedRenderPlatformsObjects;
-        SerializedProperty serializedRenderBackgroundObjects;
-        SerializedProperty serializedRenderUnknownObjects;
-        SerializedProperty serializedRenderWorldMesh;
+        SerializedProperty serializedFilterAllSceneObjects;
+        SerializedProperty serializedFilterPlatformsObjects;
+        SerializedProperty serializedFilterBackgroundObjects;
+        SerializedProperty serializedFilterUnknownObjects;
+        SerializedProperty serializedFilterWorldMesh;
+        SerializedProperty serializedFilterWallObjects;
+        SerializedProperty serializedFilterCeilingObjects;
+        SerializedProperty serializedFilterFloorObjects;
         SerializedProperty serializedRequestInferredRegions;
-        SerializedProperty serializedRenderCompletelyInferredSceneObjects;
+        SerializedProperty serializedFilterCompletelyInferredSceneObjects;
         SerializedProperty serializedMeshQuality;
         SerializedProperty serializedRenderColorBackGrounds;
         SerializedProperty serializedRenderColorWall;
@@ -57,9 +75,17 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         SerializedProperty serializedLayerCompletelyInferred;
         SerializedProperty serializedLayerWorld;
         SerializedProperty serializedisInGhostMode;
-        SerializedProperty serializedAddColliders;
+        SerializedProperty serializedAddCollidersInPlatformSceneObjects;
+        SerializedProperty serializedAddCollidersInBackgroundSceneObjects;
+        SerializedProperty serializedAddCollidersInUnknownSceneObjects;
+        SerializedProperty serializedAddCollidersInWorldMesh;
+        SerializedProperty serializedAddCollidersInCompletelyInferredSceneObjects;
+        SerializedProperty serializedAddCollidersInWallSceneObjects;
+        SerializedProperty serializedAddCollidersInFloorSceneObjects;
+        SerializedProperty serializedAddCollidersCeilingSceneObjects;
         SerializedProperty serializedOnLoadStartedCallback;
         SerializedProperty serializedOnLoadFinishedCallback;
+        SerializedProperty serializedAlignSUObjectsNormalToUnityYAxis;
 
         // Const Floats for Layout dimensions
         const float buttonWidth = 90.0f;
@@ -90,18 +116,35 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             serializedRequestInferredRegions = serializedObject.FindProperty("RequestInferredRegions");
 
             // Reference to all materials used.
-            serializedMeshMaterial = serializedObject.FindProperty("SceneObjectMeshMaterial");
-            serializedQuadMaterial = serializedObject.FindProperty("SceneObjectQuadMaterial");
+            serializedBackgroundMeshMaterial = serializedObject.FindProperty("SceneObjectBackgroundMeshMaterial");
+            serializedWallMeshMaterial = serializedObject.FindProperty("SceneObjectWallMeshMaterial");
+            serializedFloorMeshMaterial = serializedObject.FindProperty("SceneObjectFloorMeshMaterial");
+            serializedCeilingMeshMaterial = serializedObject.FindProperty("SceneObjectCeilingMeshMaterial");
+            serializedPlatformMeshMaterial = serializedObject.FindProperty("SceneObjectPlatformMeshMaterial");
+            serializedUnknownMeshMaterial = serializedObject.FindProperty("SceneObjectUnknownMeshMaterial");
+            serializedInferredMeshMaterial = serializedObject.FindProperty("SceneObjectInferredMeshMaterial");
+
+            serializedBackgroundQuadMaterial = serializedObject.FindProperty("SceneObjectBackgroundQuadMaterial");
+            serializedWallQuadMaterial = serializedObject.FindProperty("SceneObjectWallQuadMaterial");
+            serializedFloorQuadMaterial = serializedObject.FindProperty("SceneObjectFloorQuadMaterial");
+            serializedCeilingQuadMaterial = serializedObject.FindProperty("SceneObjectCeilingQuadMaterial");
+            serializedPlatformQuadMaterial = serializedObject.FindProperty("SceneObjectPlatformQuadMaterial");
+            serializedUnknownQuadMaterial = serializedObject.FindProperty("SceneObjectUnknownQuadMaterial");
+            serializedInferredQuadMaterial = serializedObject.FindProperty("SceneObjectInferredQuadMaterial");
+
             serializedWireFrameMaterial = serializedObject.FindProperty("SceneObjectWireframeMaterial");
             serializedInvisibleMaterial = serializedObject.FindProperty("TransparentOcclussion");
 
             // Reference to all toggles and filters for visualization
-            serializedRenderSceneObjects = serializedObject.FindProperty("RenderSceneObjects");
-            serializedRenderPlatformsObjects = serializedObject.FindProperty("RenderPlatformSceneObjects");
-            serializedRenderBackgroundObjects = serializedObject.FindProperty("RenderBackgroundSceneObjects");
-            serializedRenderUnknownObjects = serializedObject.FindProperty("RenderUnknownSceneObjects");
-            serializedRenderWorldMesh = serializedObject.FindProperty("RenderWorldMesh");
-            serializedRenderCompletelyInferredSceneObjects = serializedObject.FindProperty("RenderCompletelyInferredSceneObjects");
+            serializedFilterAllSceneObjects = serializedObject.FindProperty("FilterAllSceneObjects");
+            serializedFilterPlatformsObjects = serializedObject.FindProperty("FilterPlatformSceneObjects");
+            serializedFilterBackgroundObjects = serializedObject.FindProperty("FilterBackgroundSceneObjects");
+            serializedFilterUnknownObjects = serializedObject.FindProperty("FilterUnknownSceneObjects");
+            serializedFilterWorldMesh = serializedObject.FindProperty("FilterWorldMesh");
+            serializedFilterWallObjects = serializedObject.FindProperty("FilterWallSceneObjects");
+            serializedFilterCeilingObjects = serializedObject.FindProperty("FilterCeilingSceneObjects");
+            serializedFilterFloorObjects = serializedObject.FindProperty("FilterFloorSceneObjects");
+            serializedFilterCompletelyInferredSceneObjects = serializedObject.FindProperty("FilterCompletelyInferredSceneObjects");
 
             // Reference for all colors used
             serializedRenderColorBackGrounds = serializedObject.FindProperty("ColorForBackgroundObjects");
@@ -127,12 +170,21 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             serializedisInGhostMode = serializedObject.FindProperty("IsInGhostMode");
 
             // Toggle for Colliders
-            serializedAddColliders = serializedObject.FindProperty("AddColliders");
+            serializedAddCollidersInPlatformSceneObjects = serializedObject.FindProperty("AddCollidersInPlatformSceneObjects");
+            serializedAddCollidersInBackgroundSceneObjects = serializedObject.FindProperty("AddCollidersInBackgroundSceneObjects");
+            serializedAddCollidersInUnknownSceneObjects = serializedObject.FindProperty("AddCollidersInUnknownSceneObjects");
+            serializedAddCollidersInWorldMesh = serializedObject.FindProperty("AddCollidersInWorldMesh");
+            serializedAddCollidersInCompletelyInferredSceneObjects = serializedObject.FindProperty("AddCollidersInCompletelyInferredSceneObjects");
+            serializedAddCollidersInWallSceneObjects = serializedObject.FindProperty("AddCollidersInWallSceneObjects");
+            serializedAddCollidersInFloorSceneObjects = serializedObject.FindProperty("AddCollidersInFloorSceneObjects");
+            serializedAddCollidersCeilingSceneObjects = serializedObject.FindProperty("AddCollidersCeilingSceneObjects");
 
             // Reference for Callbacks
             serializedOnLoadStartedCallback = serializedObject.FindProperty("OnLoadStarted");
             serializedOnLoadFinishedCallback = serializedObject.FindProperty("OnLoadFinished");
 
+            // Toggle to Align SU Objects Normal to Unity's Y axis
+            serializedAlignSUObjectsNormalToUnityYAxis = serializedObject.FindProperty("AlignSUObjectsNormalToUnityYAxis");
         }
 
         public override void OnInspectorGUI()
@@ -252,26 +304,71 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             GUILayout.Space(verticalSpaceBetweenHeaders);
 
             // Materials
-            EditorGUILayout.PropertyField(serializedMeshMaterial);
-            EditorGUILayout.PropertyField(serializedQuadMaterial);
-            EditorGUILayout.PropertyField(serializedWireFrameMaterial);
-            EditorGUILayout.PropertyField(serializedInvisibleMaterial);
+            showMaterials = EditorGUILayout.BeginFoldoutHeaderGroup(showMaterials, "Materials");
+            if(showMaterials)
+            {
+                EditorGUILayout.PropertyField(serializedBackgroundMeshMaterial);
+                EditorGUILayout.PropertyField(serializedWallMeshMaterial);
+                EditorGUILayout.PropertyField(serializedFloorMeshMaterial);
+                EditorGUILayout.PropertyField(serializedCeilingMeshMaterial);
+                EditorGUILayout.PropertyField(serializedPlatformMeshMaterial);
+                EditorGUILayout.PropertyField(serializedUnknownMeshMaterial);
+                EditorGUILayout.PropertyField(serializedInferredMeshMaterial);
+
+                EditorGUILayout.PropertyField(serializedBackgroundQuadMaterial);
+                EditorGUILayout.PropertyField(serializedWallQuadMaterial);
+                EditorGUILayout.PropertyField(serializedFloorQuadMaterial);
+                EditorGUILayout.PropertyField(serializedCeilingQuadMaterial);
+                EditorGUILayout.PropertyField(serializedPlatformQuadMaterial);
+                EditorGUILayout.PropertyField(serializedUnknownQuadMaterial);
+                EditorGUILayout.PropertyField(serializedInferredQuadMaterial);
+
+                EditorGUILayout.PropertyField(serializedWireFrameMaterial);
+                EditorGUILayout.PropertyField(serializedInvisibleMaterial);   
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
             GUILayout.Space(verticalSpaceBetweenHeaders);
 
-            // Render Filters
-            EditorGUILayout.PropertyField(serializedRenderSceneObjects);
-            EditorGUILayout.PropertyField(serializedRenderPlatformsObjects);
-            EditorGUILayout.PropertyField(serializedRenderBackgroundObjects);
-            EditorGUILayout.PropertyField(serializedRenderUnknownObjects);
-            EditorGUILayout.PropertyField(serializedRenderWorldMesh);
-            EditorGUILayout.PropertyField(serializedRenderCompletelyInferredSceneObjects);
+            // Filters
+            showFilters = EditorGUILayout.BeginFoldoutHeaderGroup(showFilters, "Filters");
+            if(showFilters)
+            {
+                EditorGUILayout.PropertyField(serializedFilterAllSceneObjects);
+                EditorGUILayout.PropertyField(serializedFilterPlatformsObjects);
+                EditorGUILayout.PropertyField(serializedFilterBackgroundObjects);
+                EditorGUILayout.PropertyField(serializedFilterWallObjects);
+                EditorGUILayout.PropertyField(serializedFilterCeilingObjects);
+                EditorGUILayout.PropertyField(serializedFilterFloorObjects);
+                EditorGUILayout.PropertyField(serializedFilterUnknownObjects);
+                EditorGUILayout.PropertyField(serializedFilterWorldMesh);
+                EditorGUILayout.PropertyField(serializedFilterCompletelyInferredSceneObjects);
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            GUILayout.Space(verticalSpaceBetweenHeaders);
+
+            // Physics
+            showPhysics = EditorGUILayout.BeginFoldoutHeaderGroup(showPhysics, "Physics");
+            if(showPhysics)
+            {
+                
+                EditorGUILayout.PropertyField(serializedAddCollidersInPlatformSceneObjects);
+                EditorGUILayout.PropertyField(serializedAddCollidersInBackgroundSceneObjects);
+                EditorGUILayout.PropertyField(serializedAddCollidersInUnknownSceneObjects);
+                EditorGUILayout.PropertyField(serializedAddCollidersInWorldMesh);
+                EditorGUILayout.PropertyField(serializedAddCollidersInCompletelyInferredSceneObjects);
+                EditorGUILayout.PropertyField(serializedAddCollidersInWallSceneObjects);
+                EditorGUILayout.PropertyField(serializedAddCollidersInFloorSceneObjects);
+                EditorGUILayout.PropertyField(serializedAddCollidersCeilingSceneObjects);
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
             GUILayout.Space(verticalSpaceBetweenHeaders);
 
             // Ghost Mode
             EditorGUILayout.PropertyField(serializedisInGhostMode);
             GUILayout.Space(verticalSpaceBetweenHeaders);
 
-            EditorGUILayout.PropertyField(serializedAddColliders);
+            // Alignment
+            EditorGUILayout.PropertyField(serializedAlignSUObjectsNormalToUnityYAxis);
             GUILayout.Space(verticalSpaceBetweenHeaders);
 
             // Callbacks

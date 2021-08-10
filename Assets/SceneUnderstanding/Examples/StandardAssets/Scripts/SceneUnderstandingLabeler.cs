@@ -12,6 +12,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
     {
         public GameObject SceneRoot;
         public bool DisplayTextLabels;
+
         public void LabelSUScene()
         {
             if (!DisplayTextLabels)
@@ -21,9 +22,19 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
             foreach (Transform child in SceneRoot.transform)
             {
+                string label = string.Empty;
                 GameObject suObject = child.gameObject;
-                string label = suObject.name;
-                
+                SceneUnderstandingProperties properties = suObject.GetComponent<SceneUnderstandingProperties>();
+
+                if (properties != null)
+                {
+                     label = properties.suObjectKind.ToString();
+                }
+                else
+                {
+                    label = suObject.name;
+                }
+
                 if (
                     label != "Wall"      &&
                     label != "Floor"     &&
@@ -66,5 +77,6 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                 tmpro.text = label;
             }
         }
+
     }
 }

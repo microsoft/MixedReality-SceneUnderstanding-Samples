@@ -50,6 +50,12 @@
             UpdateCommands();
 
             // Appear on start
+            StartCoroutine(DelayedShow());
+        }
+
+        IEnumerator DelayedShow()
+        {
+            yield return new WaitForSeconds(3.0f);
             Show();
         }
 
