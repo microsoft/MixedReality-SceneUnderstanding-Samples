@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -669,7 +669,23 @@ PrefabInstance:
     - target: {fileID: 7616938574011737949, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: m_text
-      value: This app uses SU data create a doll house representation of your enviroment
+      value: This app uses SU data to create a doll house/bounding box representation
+        of your enviroment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616938574011737949, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616938574011737949, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616938574011737949, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 7616938574011737949, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -709,7 +725,22 @@ PrefabInstance:
     - target: {fileID: 8426562319273264626, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: m_text
-      value: Welcome to SU + GP demo!
+      value: Welcome to Scene Understanding!
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319273264626, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319273264626, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 8426562319273264626, guid: 9e92419956a00654aafabc6885e89266,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319273264626, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -749,7 +780,7 @@ PrefabInstance:
     - target: {fileID: 8426562319953196664, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.055
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196664, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -759,7 +790,7 @@ PrefabInstance:
     - target: {fileID: 8426562319953196664, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.84000015
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 8426562319953196664, guid: 9e92419956a00654aafabc6885e89266,
         type: 3}
@@ -1446,6 +1477,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1168380396
