@@ -15,7 +15,7 @@ products:
 
 Supported Unity versions | Built with XR configuration
 :-----------------: | :----------------: | 
-Unity 2019.4 | Legacy XR | 
+Unity 2020.3.12f1 | Windows XR | 
 
 A Unity-based sample application that showcases Scene Understanding on HoloLens 2. When this sample is deployed on a HoloLens, it will show the virtual representation of your real environment. For PC deployment, the sample will load a serialized scene (included under **Assets\\SceneUnderstanding\\StandardAssets\\SUScenes**) and display it. A help menu is presented on launch, which provides information about all the input commands available in the application.  
 
@@ -35,7 +35,7 @@ To learn more about Scene Understanding, visit our [Scene Understanding](https:/
 
 ## Prerequisites
 
-* Unity 2019.4.11f1 or higher
+* Unity 2020.3.12f1 or higher
 * Up-to-date version of [Unity Hub](https://unity3d.com/get-unity/download) 
 * Visual Studio 2017 or 2019 with Universal Windows Platform components 
 * Windows SDK version 10.0.18362.0 or higher
