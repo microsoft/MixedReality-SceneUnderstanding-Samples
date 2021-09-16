@@ -13,6 +13,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
     //Unity
     using UnityEngine;
     using UnityEngine.Events;
+    using Microsoft.MixedReality.OpenXR;
 
 
 #if WINDOWS_UWP
@@ -543,9 +544,9 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             {
                 // Retrieve a transformation matrix that will allow us orient the Scene Understanding Objects into
                 // their correct corresponding position in the unity world
-                System.Numerics.Matrix4x4? sceneToUnityTransformAsMatrix4x4 = GetSceneToUnityTransformAsMatrix4x4(cachedDeserializedScene);
+                Pose? sceneToUnityPose = GetSceneToUnityTransformAsPose(cachedDeserializedScene);
 
-                if (sceneToUnityTransformAsMatrix4x4 != null)
+                if (sceneToUnityPose != null)
                 {
                     // If there was previously a scene displayed in the game world, destroy it
                     // to avoid overlap with the new scene about to be displayed
@@ -555,7 +556,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
                     yield return null;
 
                     // Using the transformation matrix generated above, port its values into the tranform of the scene root (Numerics.matrix -> GameObject.Transform)
-                    SetUnityTransformFromMatrix4x4(SceneRoot.transform, sceneToUnityTransformAsMatrix4x4.Value, RunOnDevice);
+                    SetUnityTransformFromPose(SceneRoot.transform, sceneToUnityPose.Value, RunOnDevice);
 
                     if (!RunOnDevice)
                     {
@@ -1350,28 +1351,20 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
         /// from the Scene Understanding Coordinate System to the Unity one
         /// </summary>
         /// <param name="scene"> Scene from which to get the Scene Understanding Coordinate System </param>
-        private System.Numerics.Matrix4x4? GetSceneToUnityTransformAsMatrix4x4(SceneUnderstanding.Scene scene)
+        private Pose? GetSceneToUnityTransformAsPose(SceneUnderstanding.Scene scene)
         {
-            System.Numerics.Matrix4x4? sceneToUnityTransform = System.Numerics.Matrix4x4.Identity;
+            Pose? sceneToUnityPose = new Pose();
 
             if (RunOnDevice)
             {
-                Windows.Perception.Spatial.SpatialCoordinateSystem sceneCoordinateSystem = Microsoft.Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview.CreateCoordinateSystemForNode(scene.OriginSpatialGraphNodeId);
-                Windows.Perception.Spatial.SpatialCoordinateSystem unityCoordinateSystem = Microsoft.Windows.Perception.Spatial.SpatialCoordinateSystem.FromNativePtr(UnityEngine.XR.WindowsMR.WindowsMREnvironment.OriginSpatialCoordinateSystem);
-
-                sceneToUnityTransform = sceneCoordinateSystem.TryGetTransformTo(unityCoordinateSystem);
-
-                if (sceneToUnityTransform != null)
+                SpatialGraphNode node = SpatialGraphNode.FromStaticNodeId(scene.OriginSpatialGraphNodeId);
+                if (node.TryLocate(FrameTime.OnUpdate, out Pose pose))
                 {
-                    sceneToUnityTransform = ConvertRightHandedMatrix4x4ToLeftHanded(sceneToUnityTransform.Value);
-                }
-                else
-                {
-                    Debug.LogWarning("SceneUnderstandingManager.GetSceneToUnityTransform: Scene to Unity transform is null.");
+                    sceneToUnityPose = pose;
                 }
             }
 
-            return sceneToUnityTransform;
+            return sceneToUnityPose;
         }
 
         /// <summary>
@@ -1418,6 +1411,28 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
             unityTranslation = new Vector3(vector3.X, vector3.Y, vector3.Z);
             unityQuat = new Quaternion(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
             unityScale = new Vector3(scale.X, scale.Y, scale.Z);
+
+            if (updateLocalTransformOnly)
+            {
+                targetTransform.localPosition = unityTranslation;
+                targetTransform.localRotation = unityQuat;
+            }
+            else
+            {
+                targetTransform.SetPositionAndRotation(unityTranslation, unityQuat);
+            }
+        }
+
+        private void SetUnityTransformFromPose(Transform targetTransform, Pose pose, bool updateLocalTransformOnly = false)
+        {
+            if (targetTransform == null)
+            {
+                Debug.LogWarning("SceneUnderstandingManager.SetUnityTransformFromPose: Unity transform is null.");
+                return;
+            }
+
+            Vector3 unityTranslation = pose.position;
+            Quaternion unityQuat = pose.rotation;
 
             if (updateLocalTransformOnly)
             {
@@ -1529,7 +1544,7 @@ namespace Microsoft.MixedReality.SceneUnderstanding.Samples.Unity
 
                 if (suScene != null)
                 {
-                    System.Numerics.Matrix4x4? sceneToUnityTransformAsMatrix4x4 = GetSceneToUnityTransformAsMatrix4x4(suScene);
+                    System.Numerics.Matrix4x4? sceneToUnityTransformAsMatrix4x4 = System.Numerics.Matrix4x4.Identity;
 
                     if (sceneToUnityTransformAsMatrix4x4 != null)
                     {

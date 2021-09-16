@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 1
   nameUi: Motion Controller Model
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.controller
   openxrExtensionStrings: XR_MSFT_controller_model
   company: Microsoft
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Holographic Remoting remote app
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.appremoting
   openxrExtensionStrings: XR_MSFT_holographic_remoting
   company: Microsoft
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 1
   nameUi: Hand Tracking
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.handtracking
   openxrExtensionStrings: XR_EXT_hand_tracking XR_MSFT_hand_tracking_mesh
   company: Microsoft
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Holographic Remoting for Play Mode
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.playmoderemoting
   openxrExtensionStrings: XR_MSFT_holographic_remoting
   company: Microsoft
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Holographic Remoting remote app
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.appremoting
   openxrExtensionStrings: XR_MSFT_holographic_remoting
   company: Microsoft
@@ -451,7 +451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: HP Reverb G2 Controller Profile
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.interaction.hpmixedrealitycontroller
   openxrExtensionStrings: XR_EXT_hp_mixed_reality_controller
   company: Microsoft
@@ -546,11 +546,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 1
   nameUi: Mixed Reality Features
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.hololens
   openxrExtensionStrings: ' XR_MSFT_holographic_window_attachment XR_MSFT_unbounded_reference_space
     XR_MSFT_spatial_anchor XR_MSFT_secondary_view_configuration XR_MSFT_first_person_observer
-    XR_MSFT_spatial_graph_bridge XR_MSFT_perception_anchor_interop XR_MSFT_spatial_anchor_persistence_preview
+    XR_MSFT_spatial_graph_bridge XR_MSFT_perception_anchor_interop XR_MSFT_spatial_anchor_persistence
     XR_MSFT_scene_understanding XR_MSFT_composition_layer_reprojection'
   company: Microsoft
   priority: 0
@@ -569,11 +569,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Mixed Reality Features
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.hololens
   openxrExtensionStrings: ' XR_MSFT_holographic_window_attachment XR_MSFT_unbounded_reference_space
     XR_MSFT_spatial_anchor XR_MSFT_secondary_view_configuration XR_MSFT_first_person_observer
-    XR_MSFT_spatial_graph_bridge XR_MSFT_perception_anchor_interop XR_MSFT_spatial_anchor_persistence_preview
+    XR_MSFT_spatial_graph_bridge XR_MSFT_perception_anchor_interop XR_MSFT_spatial_anchor_persistence
     XR_MSFT_scene_understanding XR_MSFT_composition_layer_reprojection'
   company: Microsoft
   priority: 0
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Motion Controller Model
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.controller
   openxrExtensionStrings: XR_MSFT_controller_model
   company: Microsoft
@@ -612,7 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: HP Reverb G2 Controller Profile
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.interaction.hpmixedrealitycontroller
   openxrExtensionStrings: XR_EXT_hp_mixed_reality_controller
   company: Microsoft
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 1
   nameUi: Motion Controller Model
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.controller
   openxrExtensionStrings: XR_MSFT_controller_model
   company: Microsoft
@@ -697,7 +697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Holographic Remoting remote app
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.appremoting
   openxrExtensionStrings: XR_MSFT_holographic_remoting
   company: Microsoft
@@ -751,23 +751,22 @@ MonoBehaviour:
   m_Name: WSA
   m_EditorClassIdentifier: 
   features:
+  - {fileID: -1097883078711937353}
   - {fileID: 8686576552985614782}
   - {fileID: -7896940536808664644}
+  - {fileID: -6834684667901835994}
+  - {fileID: -1727060262638453026}
   - {fileID: 8236527081792390401}
   - {fileID: 1371349630826514934}
   - {fileID: 6221780584128075585}
   - {fileID: -3531333747834219232}
-  - {fileID: 4331999306402003337}
-  - {fileID: 6472887123193730628}
-  - {fileID: 6191732285472075406}
-  - {fileID: -1727060262638453026}
-  - {fileID: -6834684667901835994}
   - {fileID: 4955756074551320065}
   - {fileID: -1179494806120903040}
-  - {fileID: -1097883078711937353}
+  - {fileID: 4331999306402003337}
+  - {fileID: 6191732285472075406}
+  - {fileID: 6472887123193730628}
   m_renderMode: 1
   m_depthSubmissionMode: 1
-  lastPlayVersion: 
 --- !u!114 &-635381776214669271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,7 +781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Hand Tracking
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.handtracking
   openxrExtensionStrings: XR_EXT_hand_tracking XR_MSFT_hand_tracking_mesh
   company: Microsoft
@@ -1076,7 +1075,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: HP Reverb G2 Controller Profile
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.interaction.hpmixedrealitycontroller
   openxrExtensionStrings: XR_EXT_hp_mixed_reality_controller
   company: Microsoft
@@ -1261,7 +1260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 1
   nameUi: Hand Tracking
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.handtracking
   openxrExtensionStrings: XR_EXT_hand_tracking XR_MSFT_hand_tracking_mesh
   company: Microsoft
@@ -1355,23 +1354,23 @@ MonoBehaviour:
   m_Name: Standalone
   m_EditorClassIdentifier: 
   features:
-  - {fileID: 4574933251239588944}
+  - {fileID: -7066085896291116170}
   - {fileID: -9213544820337919680}
   - {fileID: 1867577987966233170}
+  - {fileID: 4327128120524768379}
+  - {fileID: 2227451340894642667}
   - {fileID: 2723637601038952757}
   - {fileID: 1006477456828743807}
   - {fileID: -5866947069713905998}
   - {fileID: 2460861503745263474}
-  - {fileID: -6525850401853205681}
-  - {fileID: -3532535578827912556}
-  - {fileID: 432691900168246298}
-  - {fileID: 2227451340894642667}
-  - {fileID: 4327128120524768379}
   - {fileID: -3139052423862056603}
-  - {fileID: -7667879706220841938}
-  - {fileID: -7066085896291116170}
-  - {fileID: -4867482997255360398}
+  - {fileID: 4574933251239588944}
   - {fileID: 6158150392537589098}
+  - {fileID: -7667879706220841938}
+  - {fileID: -6525850401853205681}
+  - {fileID: -4867482997255360398}
+  - {fileID: 432691900168246298}
+  - {fileID: -3532535578827912556}
   m_renderMode: 1
   m_depthSubmissionMode: 2
 --- !u!114 &4907128206007489967
@@ -1418,11 +1417,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 1
   nameUi: Mixed Reality Features
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.hololens
   openxrExtensionStrings: ' XR_MSFT_holographic_window_attachment XR_MSFT_unbounded_reference_space
     XR_MSFT_spatial_anchor XR_MSFT_secondary_view_configuration XR_MSFT_first_person_observer
-    XR_MSFT_spatial_graph_bridge XR_MSFT_perception_anchor_interop XR_MSFT_spatial_anchor_persistence_preview
+    XR_MSFT_spatial_graph_bridge XR_MSFT_perception_anchor_interop XR_MSFT_spatial_anchor_persistence
     XR_MSFT_scene_understanding XR_MSFT_composition_layer_reprojection'
   company: Microsoft
   priority: 0
@@ -1456,7 +1455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Motion Controller Model
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.controller
   openxrExtensionStrings: XR_MSFT_controller_model
   company: Microsoft
@@ -1476,7 +1475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Hand Tracking
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.handtracking
   openxrExtensionStrings: XR_EXT_hand_tracking XR_MSFT_hand_tracking_mesh
   company: Microsoft
@@ -1496,11 +1495,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Mixed Reality Features
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.hololens
   openxrExtensionStrings: ' XR_MSFT_holographic_window_attachment XR_MSFT_unbounded_reference_space
     XR_MSFT_spatial_anchor XR_MSFT_secondary_view_configuration XR_MSFT_first_person_observer
-    XR_MSFT_spatial_graph_bridge XR_MSFT_perception_anchor_interop XR_MSFT_spatial_anchor_persistence_preview
+    XR_MSFT_spatial_graph_bridge XR_MSFT_perception_anchor_interop XR_MSFT_spatial_anchor_persistence
     XR_MSFT_scene_understanding XR_MSFT_composition_layer_reprojection'
   company: Microsoft
   priority: 0
@@ -1721,7 +1720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: HP Reverb G2 Controller Profile
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.interaction.hpmixedrealitycontroller
   openxrExtensionStrings: XR_EXT_hp_mixed_reality_controller
   company: Microsoft
@@ -1764,9 +1763,9 @@ MonoBehaviour:
   - {fileID: 4539212952742580748}
   - {fileID: -7785351501736925715}
   - {fileID: -206186719366469523}
+  - {fileID: -4393742154726015257}
   - {fileID: 7251205223525030807}
   - {fileID: -5820620491916566564}
-  - {fileID: -4393742154726015257}
   m_renderMode: 1
   m_depthSubmissionMode: 0
 --- !u!114 &8236527081792390401
@@ -1843,7 +1842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Holographic Remoting remote app
-  version: 1.0.2
+  version: 1.0.3
   featureIdInternal: com.microsoft.openxr.feature.appremoting
   openxrExtensionStrings: XR_MSFT_holographic_remoting
   company: Microsoft
